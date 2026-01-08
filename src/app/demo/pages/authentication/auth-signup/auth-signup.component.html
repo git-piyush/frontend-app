@@ -1,0 +1,101 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="logo">
+            <img src="assets/logo/logo1.png" alt="All In One Management" />
+            <h2>All In One Management</h2>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <h3>Registration</h3>
+            <div class="row">
+              <div class="form-group half-width">
+                <label for="firstName">First Name</label>
+                <input type="text" 
+                      formControlName="firstName"
+                      placeholder="First Name"
+                      class="small-input" />
+                @if (registerForm.get('firstName')?.hasError('required') && registerForm.get('firstName')?.touched) {
+                      <div class="error">First Name is required.</div>
+                    }
+              </div>
+
+              <div class="form-group half-width">
+                <label for="lastName">Last Name</label>
+                <input type="text" 
+                      formControlName="lastName"
+                      placeholder="Last Name"
+                      class="small-input" />
+                @if (registerForm.get('lastName')?.hasError('required') && registerForm.get('lastName')?.touched) {
+                      <div class="error">Last Name is required.</div>
+                    }
+              </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" 
+                      formControlName="email"
+                      placeholder="Email"
+                      class="small-input" />
+                @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+                      <div class="error">Email is required.</div>
+                    }
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" 
+                      formControlName="phoneNumber"
+                      placeholder="Phone"
+                      class="small-input" />
+                @if (registerForm.get('phoneNumber')?.hasError('required') && registerForm.get('phoneNumber')?.touched) {
+                      <div class="error">Phone is required.</div>
+                    }
+                @if (registerForm.get('phoneNumber')?.hasError('pattern') && registerForm.get('phoneNumber')?.touched) {
+                      <div class="error">Please add a vaild phone.</div>
+                    }
+            </div>
+
+            <div class="form-group half-width">
+                <label for="role">Role</label>
+                <select formControlName="role" class="small-input" name="role">
+                  <option value="ADMIN">Admin</option>
+                  <option value="USER" selected>User</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password"
+                  formControlName = "password"
+                  name = "password"
+                  placeholder="Password"
+                  class="small-input"/>
+                  @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
+                      <div class="error">Password is required.</div>
+                    }
+                  @if (registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched) {
+                      <div class="error">Password must be minimum 4 charecter.</div>
+                    }
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="text"
+                  formControlName = "confirmPassword"
+                  name = "confirmPassword"
+                  placeholder="Confirm Password"
+                  class="small-input"/>
+                  @if (registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched) {
+                      <div class="error">Password do not match.</div>
+                    }
+            </div>
+            <button type="submit">
+              LogIn
+            </button>
+        </form>
+            <p class="signup-text">
+              Already have an account? <a routerLink="/login">Sign in</a>
+            </p>
+  </div>
+</div>

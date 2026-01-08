@@ -1,0 +1,48 @@
+<div class="login-container">
+    <div class="login-card">
+        <div class="logo">
+            <img src="assets/logo/logo1.png" alt="All In One Management" />
+            <h2>All In One Management</h2>
+        </div>
+        <form   [formGroup]="loginData" (ngSubmit)="onLogin()">
+            <h3>LogIn</h3>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" 
+                  formControlName="email"
+                  placeholder="Email" />
+                <small class="error" *ngIf="loginData.get('email')?.hasError('required') && loginData.get('email')?.touched">
+                    First Name is required.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password"
+                  name = "password"
+                  placeholder="Password"
+                  formControlName = "password" />
+                  @if (loginData.get('password')?.hasError('required') && loginData.get('password')?.touched) {
+                      <div class="error">Password is required.</div>
+                    }
+                  @if (loginData.get('password')?.hasError('minlength') && loginData.get('password')?.touched) {
+                      <div class="error">Password must be minimum 4 charecter.</div>
+                    }
+            </div>
+            <button type="submit">
+              LogIn
+            </button>
+        </form>
+            <p class="signup-text">
+              Don’t have an account? <a routerLink="/register">Sign up</a>
+            </p>
+  </div>
+</div>
+
+
+
+
+
+
+
+
