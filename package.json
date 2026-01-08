@@ -13,9 +13,6 @@
     "lint:fix": "ng lint --fix",
     "prettier": "prettier --write ./src"
   },
-  "engines": {
-  "node": "18.x"
-},
   "private": false,
   "dependencies": {
     "@angular/animations": "20.0.5",
