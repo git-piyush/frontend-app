@@ -19,8 +19,6 @@ export class Addvehicle  implements OnInit {
   vehicleForm: FormGroup;
   availableVehicles: any[] = [];
   loadingVehicles = false;
-  editMode:false;
-  
 
   constructor(
     private fb: FormBuilder,
@@ -50,7 +48,6 @@ export class Addvehicle  implements OnInit {
       }
 
   ngOnInit(): void {
-    this.editMode=false;
     //this.loadAvailableVehicles();
   }
 

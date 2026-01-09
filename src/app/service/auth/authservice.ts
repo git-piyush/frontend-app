@@ -7,8 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class Authservice {
 
-        private static BASE_URL = 'https://backend-app-dhaw.onrender.com/api';
+  private static BASE_URL = 'https://backend-app-dhaw.onrender.com/api';
 
+ // private static BASE_URL = 'http://localhost:8080/api';
   constructor(private http: HttpClient) {}
 
   loginUser(body: any): Observable<any> {
