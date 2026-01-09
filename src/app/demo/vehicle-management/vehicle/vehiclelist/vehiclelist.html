@@ -1,1 +1,106 @@
-<p>vehiclelist works!</p>
+<div class="container-fluid">
+  <div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h2 class="mb-0">Vehicle List</h2>
+
+      <!-- Add New Button, Export and Print Buttons -->
+      <div class="d-flex gap-2">
+        <!-- Add New Button -->
+        <!-- <button type="button" class="btn btn-success btn-sm" (click)="addBooking()">
+          <i class="fa fa-plus me-2"></i>Add New vehicle
+        </button> -->
+        <!-- Export Dropdown -->
+        <div class="btn-group" ngbDropdown>
+          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" ngbDropdownToggle>
+            <i class="fa fa-download me-2"></i>Export
+          </button>
+          <div ngbDropdownMenu class="dropdown-menu">
+            <button class="dropdown-item" > //(click)="exportToPDF()"
+              <i class="fa fa-file-pdf-o me-2"></i>Export to PDF
+            </button>
+            <button class="dropdown-item" > //(click)="exportToExcel()"
+              <i class="fa fa-file-excel-o me-2"></i>Export to Excel
+            </button>
+            <button class="dropdown-item" > //(click)="exportToCSV()"
+              <i class="fa fa-file-o me-2"></i>Export to CSV
+            </button>
+            <button class="dropdown-item" > //(click)="exportToDocx()"
+              <i class="fa fa-file-word-o me-2"></i>Export to Docx
+            </button>
+          </div>
+        </div>
+        <!-- Print Button -->
+        <button type="button" class="btn btn-secondary btn-sm" > //(click)="printBookedVehicles()"
+          <i class="fa fa-print me-2"></i>Print List
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="text-center py-5">
+    <div class="spinner-border text-primary"></div>
+    <p>Loading vehicles...</p>
+  </div>
+
+  <!-- Booked Vehicles Table -->
+  <div *ngIf="!loading && vehicles.length > 0" class="row">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead class="text-center">
+            <tr style="background-color: #f8f9fa;">
+              <th class="text-center">Vehicle Id</th>
+              <th class="text-center">Vehicle Id</th>
+              <th class="text-center">Origin City</th>
+              <th class="text-center">Dest. City</th>
+              <th class="text-center">Permit Level</th>
+              <th class="text-center">Vehicle Type</th>
+              <th class="text-center">Driver Phone</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Capacity</th>
+              <th class="text-center">Vehicle Added Date</th>
+              <th class="text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vehicle of vehicles">
+                <td class="text-center">{{ vehicle.vehicleId }}</td>
+                <td class="text-center">{{ vehicle.vehicleRegNo }}</td>
+                <td class="text-center">{{ vehicle.originCity }}</td>
+                <td class="text-center">{{ vehicle.destinationCity }}</td>
+                <td class="text-center">{{ vehicle.permitLevel }}</td>
+                <td class="text-center">{{ vehicle.vehicleType }}</td>
+                <td class="text-center">{{ vehicle.driverMob }}</td>
+                <td class="text-center">{{ vehicle.price }}</td>
+                <td class="text-center">{{ vehicle.capacity }}</td>
+                <td class="text-center">{{ vehicle.createdDate | date:'dd-MM-yyyy' }}</td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-warning me-2"
+                            (click)="updateBooking(vehicle.id)"
+                            title="Update">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                <button class="btn btn-sm btn-danger"
+                        (click)="deleteBooking(vehicle.id)"
+                        title="Delete">
+                    <i class="fa fa-trash"></i>
+                </button>
+                </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!loading && vehicles.length === 0" class="text-center py-5">
+    <h4>No booked vehicles found.</h4>
+  </div>
+
+</div>
+
