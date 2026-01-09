@@ -1,0 +1,142 @@
+<div class="page-container">
+  <div class="card">
+    <div class="card-header text-center">
+      <h5>Add Vehicle</h5>
+      <div class="text-end">
+        <button type="button" class="btn btn-info" (click)="viewVehicleList()">
+          <i class="fa fa-list"></i> View Vehicle List
+        </button>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label name="vehicleRegNo">Vehicle Reg. No. *</label>
+                <input type="text" formControlName="vehicleRegNo"
+                    class="form-control" placeholder="Enter Vehicle Reg. No." />
+                    @if (vehicleForm.get('vehicleRegNo')?.hasError('required') && vehicleForm.get('vehicleRegNo')?.touched) {
+                      <div class="error">Vehicle Reg. No. is required.</div>
+                    }
+            </div>
+            <!-- Vehicle Type -->
+            <div class="col-md-4 mb-3">
+                <label name="vehicleType">Vehicle Type *</label>
+                <select formControlName="vehicleType" class="form-control" name="vehicleType">
+                    <option value="" disabled selected>Select Vehicle Type</option>
+                    <option value="LORI">LORI</option>
+                    <option value="TRUCK">TRUCK</option>
+                    <option value="CAR">CAR</option>
+                    <option value="VAN">VAN</option>
+                    <option value="BUS">BUS</option>
+                </select>
+                    @if (vehicleForm.get('vehicleType')?.hasError('required') && vehicleForm.get('vehicleType')?.touched) {
+                      <div class="error">Vehicle Type is required.</div>
+                    }
+            </div>
+            <!-- Vehicle Permit -->
+            <div class="col-md-4 mb-3">
+                <label name="permitLevel">Permit Level *</label>
+                <select formControlName="permitLevel" class="form-control" name="permitLevel">
+                    <option value="" disabled selected>Select Vehicle Permit</option>
+                    <option value="CITY">CITY</option>
+                    <option value="STATE">STATE</option>
+                    <option value="ALLINDIA">ALLINDIA</option>
+                </select>
+                    @if (vehicleForm.get('permitLevel')?.hasError('required') && vehicleForm.get('permitLevel')?.touched) {
+                      <div class="error">Vehicle Permit is required.</div>
+                    }
+            </div>
+
+            <!-- Driver Mob -->
+            <div class="col-md-4 mb-3">
+                <label name="driverMob">Driver Mobile No. *</label>
+                <input type="text" formControlName="driverMob"
+                    class="form-control" placeholder="Enter Driver Mobile No." />
+                    @if (vehicleForm.get('driverMob')?.hasError('required') && vehicleForm.get('driverMob')?.touched) {
+                      <div class="error">Driver Mob. No. is required.</div>
+                    }
+            </div>
+
+            <!-- Hire Amount -->
+            <div class="col-md-4 mb-3">
+                <label name="price">Rate</label>
+                <input type="number" formControlName="price"
+                class="form-control" placeholder="Enter rate" />
+                @if (vehicleForm.get('price')?.hasError('required') && vehicleForm.get('price')?.touched) {
+                    <div class="error">Price is required.</div>
+                }
+            </div>
+
+            <!-- capacity -->
+            <div class="col-md-4 mb-3">
+                <label name="capacity">Capacity</label>
+                <input type="number" formControlName="capacity"
+                class="form-control" placeholder="Enter Capacity" />
+                @if (vehicleForm.get('capacity')?.hasError('required') && vehicleForm.get('capacity')?.touched) {
+                    <div class="error">Capacity is required.</div>
+                }
+            </div>
+
+            <!-- Origin City -->
+            <div class="col-md-4 mb-3">
+                <label name="originCity">Origin City *</label>
+                <select formControlName="originCity" class="form-control" name="originCity">
+                    <option value="" disabled selected>Select Origin City</option>
+                    <option value="BANGALORE">Bangalore</option>
+                    <option value="MYSORE">Mysore</option>
+                    <option value="GOA">GOA</option>
+                </select>
+                
+                @if (vehicleForm.get('originCity')?.hasError('required') && vehicleForm.get('originCity')?.touched) {
+                      <div class="error">Origin City is required.</div>
+                }
+            </div>
+            <!-- Origin City -->
+            <div class="col-md-4 mb-3">
+                <label name="destinationCity">Destination City *</label>
+                <select formControlName="destinationCity" class="form-control" name="destinationCity">
+                    <option value="" disabled selected>Select Origin City</option>
+                    <option value="BANGALORE">Bangalore</option>
+                    <option value="MYSORE">Mysore</option>
+                    <option value="GOA">GOA</option>
+                </select>
+                
+                @if (vehicleForm.get('destinationCity')?.hasError('required') && vehicleForm.get('destinationCity')?.touched) {
+                      <div class="error">Destination City is required.</div>
+                }
+                @if (vehicleForm.hasError('mismatch') && vehicleForm.get('destinationCity')?.touched) {
+                      <div class="error">Source And Destination can't be same.</div>
+                    }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label name="description">Description</label>
+                <textarea type="text" formControlName="description"
+                class="form-control">
+                </textarea>
+            </div>
+
+                   <!-- Bus Photo -->
+            <!-- <div class="row justify-content-center">
+                <div class="col-md-4 mb-3 text-center">
+                    <label class="form-label">Vehicle Photo</label>
+                    <input type="file" formControlName="vehicleImage" class="form-control"
+                    placeholder="Enter Vehicle Image"
+                    />
+                </div>
+            </div> -->
+        </div>
+
+        <!-- Submit -->
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-primary px-5" [disabled]="vehicleForm.invalid">Submit</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+

@@ -41,6 +41,14 @@ const routes: Routes = [
         loadComponent: () => import('./demo/vehicle-management/bookings/booking/booking').then(c => c.Booking)
       },
       {
+        path: 'add-vehicle',
+        loadComponent: () => import('./demo/vehicle-management/vehicle/addvehicle/addvehicle').then(c => c.Addvehicle)
+      },
+      {
+        path: 'vehicle-list',
+        loadComponent: () => import('./demo/vehicle-management/vehicle/vehiclelist/vehiclelist').then(c => c.Vehiclelist)
+      },
+      {
         path: 'sale',
         loadComponent: () => import('./demo/vehicle-management/sales/sale/sale').then(c => c.SaleComponent)
       },
@@ -83,7 +91,7 @@ const routes: Routes = [
       {
         path: 'booked-vehicles',
         loadComponent: () => import('./demo/vehicle-management/bookings/booked-vehicles-list/booked-vehicles-list.component').then(c => c.BookedVehiclesListComponent)
-  },
+      },
       { path: 'events', component: EventComponent },
       // ✅ Admin Management Page
       { path: 'admin-management', component: AdminManagementComponent },

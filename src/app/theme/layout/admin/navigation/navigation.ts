@@ -108,6 +108,18 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'fa fa-truck',
         children: [
           {
+            id: 'addvehicle',
+            title: 'Add Vehicle',
+            type: 'item',
+            url: '/add-vehicle'
+          },
+          {
+            id: 'vehiclelist',
+            title: 'Vehicle List',
+            type: 'item',
+            url: '/vehicle-list'
+          },
+          {
             id: 'bookings',
             title: 'Bookings',
             type: 'item',

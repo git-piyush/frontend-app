@@ -46,6 +46,7 @@ export class DashboardComponent implements AfterViewInit {
 
   // Quick actions
   quickActions = [
+    { title: 'Add Vehicle', icon: 'icon-plus', url: '/add-vehicle', color: 'btn-info' },
     { title: 'New Booking', icon: 'icon-plus', url: '/bookings', color: 'btn-primary' },
     { title: 'Booked Vehicles', icon: 'icon-truck', url: '/booked-vehicles', color: 'btn-success' },
     { title: 'Reports', icon: 'icon-bar-chart', url: '/vehicle-booking-reports', color: 'btn-info' },
