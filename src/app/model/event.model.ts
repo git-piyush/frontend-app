@@ -11,9 +11,9 @@ export interface EventModel {
 
   department?: string;
 
-  isPrivateEvent?: boolean;
-  isDepartmentEvent?: boolean;
-  isVehicleUpdate?: boolean;
+  privateEvent?: boolean;
+  departmentEvent?: boolean;
+  vehicleUpdate?: boolean;
 
   // backend uses LocalDateTime — we will send ISO datetime strings
   startDate?: string; // "YYYY-MM-DDTHH:mm:ss"

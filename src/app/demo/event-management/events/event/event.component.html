@@ -48,9 +48,9 @@
           <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
         </select>
 
-<label><input type="checkbox" [(ngModel)]="form.isPrivateEvent"> 🔒 Private Event</label>
-<label><input type="checkbox" [(ngModel)]="form.isDepartmentEvent"> 👥 Department Event</label>
-<label><input type="checkbox" [(ngModel)]="form.isVehicleUpdate"> 🌐 Vehicle Update</label>
+<label><input type="checkbox" [(ngModel)]="form.privateEvent"> 🔒 Private Event</label>
+<label><input type="checkbox" [(ngModel)]="form.departmentEvent"> 👥 Department Event</label>
+<label><input type="checkbox" [(ngModel)]="form.vehicleUpdate"> 🌐 Vehicle Update</label>
 
 <label><input type="date" class="form-control" [(ngModel)]="form.startDate">startDate</label>
 <label><input type="date" class="form-control" [(ngModel)]="form.endDate">endDate</label>

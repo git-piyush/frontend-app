@@ -46,9 +46,9 @@ export class EventComponent implements OnInit {
     vehiclePriority: '',
     bookingStatus: '',
     department: '',
-    isPrivateEvent: false,
-    isDepartmentEvent: false,
-    isVehicleUpdate: false,
+    privateEvent: false,
+    departmentEvent: false,
+    vehicleUpdate: false,
     startDate: '',
     dueDate: '',
     endDate: ''
@@ -62,12 +62,12 @@ export class EventComponent implements OnInit {
   }
 
   loadEvents() {
-    this.service.getAll().subscribe(res => {
+    this.service.getAllEvents().subscribe(res => {
       this.events = res.map(e => ({
         ...e,
         color: this.getColor(e)
       }));
-
+      console.log(this.events);
       this.calendarOptions = {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -79,9 +79,9 @@ export class EventComponent implements OnInit {
         events: res.map(e => {
           // Build title with visual indicators
           let title = e.title;
-          if (e.isPrivateEvent) title = '🔒 ' + title;
-          if (e.isDepartmentEvent) title = '👥 ' + title;
-          if (e.isVehicleUpdate) title = '🌐 ' + title;
+          if (e.privateEvent) title = '🔒 ' + title;
+          if (e.departmentEvent) title = '👥 ' + title;
+          if (e.vehicleUpdate) title = '🌐 ' + title;
 
           return {
             id: String(e.id),
@@ -96,9 +96,9 @@ export class EventComponent implements OnInit {
               bookingStatus: e.bookingStatus,
               vehiclePriority: e.vehiclePriority,
               department: e.department,
-              isPrivateEvent: e.isPrivateEvent,
-              isDepartmentEvent: e.isDepartmentEvent,
-              isVehicleUpdate: e.isVehicleUpdate
+              privateEvent: e.privateEvent,
+              departmentEvent: e.departmentEvent,
+              vehicleUpdate: e.vehicleUpdate
             }
           };
         }),
@@ -251,9 +251,9 @@ export class EventComponent implements OnInit {
       vehiclePriority: '',
       bookingStatus: '',
       department: '',
-      isPrivateEvent: false,
-      isDepartmentEvent: false,
-      isVehicleUpdate: false,
+      privateEvent: false,
+      departmentEvent: false,
+      vehicleUpdate: false,
       startDate: '',
       endDate: '',
       dueDate: ''
