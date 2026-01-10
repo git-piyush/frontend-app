@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VehicleService } from '../../service/vehicle.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Vehicle } from '../../bookings/models/vehicle-booking.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-vehiclelist',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './vehiclelist.html',
   styleUrl: './vehiclelist.scss'
 })
@@ -54,23 +54,31 @@ export class Vehiclelist implements OnInit {
     });
   }
 
-    updateBooking(vehicleId: number) {
-      this.editMode = true;
-      this.showBookingModal = true;
-      this.vehicleService.getVehicleById(vehicleId).subscribe({
-            next: (response) => {
-              console.log(response);
-            },
-            error: (err) => {
-              console.error('Error fetching booking:', err);
-            }
-          });
+  deleteBooking(vehicleId:number) {
 
-    }
-  
-    deleteBooking(id) {
-      this.showConfirmationDialog = true;
-      alert(id);
-    }
+      if(!confirm("Are you sure you want to delete this vehicle?")){
+        return;
+      }
+
+      this.vehicleService.deleteVehicleById(vehicleId).subscribe({
+        next: (res) => {
+            this.snackBar.open("Vehicle Deleted.", '', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+            window.location.reload();
+        },
+        error: (err) => {
+            this.snackBar.open("Some Error Occured.", '', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+        }
+
+      });
+
+  }
 
 }

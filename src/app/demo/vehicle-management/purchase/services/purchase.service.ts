@@ -6,7 +6,8 @@ import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PurchaseService {
-  private apiUrl = `${environment.apiUrl}/vehicle-purchases`;
+
+  private apiUrl = environment.BASE_URL;
   private localStorageKey = 'vehiclePurchases';
 
   constructor(private http: HttpClient) {}

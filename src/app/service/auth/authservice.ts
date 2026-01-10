@@ -1,15 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Authservice {
 
-  private static BASE_URL = 'https://backend-app-dhaw.onrender.com/api';
+  //private static BASE_URL = 'https://backend-app-dhaw.onrender.com/api';
 
  // private static BASE_URL = 'http://localhost:8080/api';
+ private static BASE_URL = environment.BASE_URL;
+
   constructor(private http: HttpClient) {}
 
   loginUser(body: any): Observable<any> {

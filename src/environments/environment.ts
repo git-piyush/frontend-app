@@ -5,9 +5,8 @@
 import packageInfo from '../../package.json';
 
 export const environment = {
-  appVersion: packageInfo.version,
   production: false,
-  apiUrl: 'https://backend-app-dhaw.onrender.com/api'
+  BASE_URL: 'http://localhost:8080/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

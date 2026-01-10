@@ -79,7 +79,8 @@
                 <td class="text-center">{{ vehicle.createdDate | date:'dd-MM-yyyy' }}</td>
                 <td class="text-center">
                     <button class="btn btn-sm btn-warning me-2"
-                            (click)="updateBooking(vehicle.id)"
+                            type="button"
+                            [routerLink]="['/update-vehicle', vehicle.id]"
                             title="Update">
                         <i class="fa fa-edit"></i>
                     </button>

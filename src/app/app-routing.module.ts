@@ -49,6 +49,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/vehicle-management/vehicle/vehiclelist/vehiclelist').then(c => c.Vehiclelist)
       },
       {
+        path: 'update-vehicle/:vehicleId',
+        loadComponent: () => import('./demo/vehicle-management/vehicle/updatevehicle/updatevehicle').then(c => c.Updatevehicle)
+      },
+      {
         path: 'sale',
         loadComponent: () => import('./demo/vehicle-management/sales/sale/sale').then(c => c.SaleComponent)
       },
