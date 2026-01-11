@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Chart, registerables } from 'chart.js';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { BookingService } from '../vehicle-management/bookings/services/booking.service';
 import { DriverService } from '../vehicle-management/drivers/services/driver.service';
+import { DashboardService } from './dashboard.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 Chart.register(...registerables);
 
@@ -14,13 +17,67 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, SharedModule],
+  imports: [CommonModule, RouterModule, SharedModule, CommonModule, ReactiveFormsModule, FormsModule, FullCalendarModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
 
   currentTime: string = '';
+  totalVehicle:any='';
+  totalEvent:any='';
+  
+  statusCards = [
+  { 
+    
+  }
+];
+
+  constructor(private dashBoardService:DashboardService, private router: Router, private snackBar: MatSnackBar,) {
+    this.updateTime();
+    // Update time every minute
+    setInterval(() => this.updateTime(), 60000);
+  }
+
+  ngOnInit() {
+    this.loadDashboardData();
+  }
+
+  loadDashboardData(){
+
+      this.dashBoardService.getDashboardData().subscribe({
+          next: (res:any) => {
+            console.log(res);
+            if (res!=null) {
+                      this.totalVehicle = res.totalVehicle;
+                      this.totalEvent = res.totalEvent;
+                              // ENHANCED STATUS CARDS
+                        this.statusCards = [
+                          { title: 'AVAILABLE VEHICLES', icon: 'icon-truck text-info', amount: this.totalVehicle, progress: 60, bg: 'bg-primary', cardClass: 'card-stats-primary' },
+                          { title: 'IN PROGRESS', icon: 'icon-refresh-ccw text-success', amount: 45, progress: 85, bg: 'bg-success', cardClass: 'card-stats-success' },
+                          { title: 'MAINTENANCE', icon: 'fa-solid fa-wrench', amount: 7, progress: 40, bg: 'bg-danger', cardClass: 'card-stats-danger' },
+                          { title: 'Total Events', icon: 'icon-calendar-days text-warning', amount: this.totalEvent, progress: 95, bg: 'bg-warning', cardClass: 'card-stats-warning' },
+                          { title: 'PENDING', icon: 'icon-clock text-warning', amount: this.totalVehicle, progress: 75, bg: 'bg-warning', cardClass: 'card-stats-warning' },
+                          { title: 'OVERDUE', icon: 'icon-alert-triangle text-info', amount: 38, progress: 65, bg: 'bg-info', cardClass: 'card-stats-info' },
+                          { title: 'COMPLETED', icon: 'icon-check text-success', amount: 83, progress: 90, bg: 'bg-success', cardClass: 'card-stats-success' },
+                          { title: 'ACTIVE BOOKINGS', icon: 'icon-book text-secondary', amount: this.totalVehicle, progress: 55, bg: 'bg-secondary', cardClass: 'card-stats-secondary' },
+                          { title: 'DRIVERS AVAILABLE', icon: 'icon-users text-warning', amount: this.totalVehicle, progress: 95, bg: 'bg-warning', cardClass: 'card-stats-warning' },
+                          { title: 'CUSTOMER SATISFACTION', icon: 'icon-star text-info', amount: '4.8/5', progress: 92, bg: 'bg-info', cardClass: 'card-stats-info' }
+                        ];
+                  }
+              },
+              error: (err: any) => {
+                if(err.error.status===401){
+                    this.showError(err.error.message);
+                    this.router.navigate(['/login']);
+                  }
+                    this.showError(err.error.message);
+                }
+      });
+  }
+
+
+
 
   // VEHICLE IMAGE LIST
   vehicleImages: string[] = [
@@ -30,18 +87,7 @@ export class DashboardComponent implements AfterViewInit {
     'assets/images/vehicles/pickup-red.png'
   ];
 
-  // ENHANCED STATUS CARDS
-  statusCards = [
-    { title: 'AVAILABLE VEHICLES', icon: 'icon-fa truck', amount: 128, progress: 60, bg: 'bg-primary', cardClass: 'card-stats-primary' },
-    { title: 'IN PROGRESS', icon: 'icon-refresh-ccw text-success', amount: 45, progress: 85, bg: 'bg-success', cardClass: 'card-stats-success' },
-    { title: 'MAINTENANCE', icon: 'fa-solid fa-wrench', amount: 7, progress: 40, bg: 'bg-danger', cardClass: 'card-stats-danger' },
-    { title: 'PENDING', icon: 'icon-clock text-warning', amount: '10', progress: 75, bg: 'bg-warning', cardClass: 'card-stats-warning' },
-    { title: 'OVERDUE', icon: 'icon-alert-triangle text-info', amount: 38, progress: 65, bg: 'bg-info', cardClass: 'card-stats-info' },
-    { title: 'COMPLETED', icon: 'icon-check text-success', amount: 83, progress: 90, bg: 'bg-success', cardClass: 'card-stats-success' },
-    { title: 'ACTIVE BOOKINGS', icon: 'icon-book text-secondary', amount: '60', progress: 55, bg: 'bg-secondary', cardClass: 'card-stats-secondary' },
-    { title: 'DRIVERS AVAILABLE', icon: 'icon-users text-warning', amount: '50', progress: 95, bg: 'bg-warning', cardClass: 'card-stats-warning' },
-    { title: 'CUSTOMER SATISFACTION', icon: 'icon-star text-info', amount: '4.8/5', progress: 92, bg: 'bg-info', cardClass: 'card-stats-info' }
-  ];
+
 
 
   // Quick actions
@@ -96,11 +142,7 @@ export class DashboardComponent implements AfterViewInit {
     { type: 'success', message: 'All maintenance schedules up to date', count: 0 }
   ];
 
-  constructor() {
-    this.updateTime();
-    // Update time every minute
-    setInterval(() => this.updateTime(), 60000);
-  }
+
 
   updateTime() {
     const now = new Date();
@@ -186,5 +228,13 @@ export class DashboardComponent implements AfterViewInit {
         }
       }
     });
+  }
+
+  showError(msg: string){
+      this.snackBar.open(msg, '', {
+      duration: 3000, // auto-close after 5 seconds
+      verticalPosition: 'top',
+      horizontalPosition: 'center'
+      });
   }
 }

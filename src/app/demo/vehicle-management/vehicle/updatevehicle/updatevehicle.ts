@@ -52,12 +52,15 @@ export class Updatevehicle implements OnInit {
       updateBooking(vehicleId: number) {
         this.vehicleService.getVehicleById(vehicleId).subscribe({
               next: (response) => {
-                console.log(response);
                 this.vehicleForm.patchValue(response);
               },
               error: (err) => {
-                console.error('Error fetching booking:', err);
-              }
+                  if(err.error.status=401){
+                    this.showError(err.error.message);
+                    this.router.navigate(['/login']);
+                  }
+                    this.showError(err.error.message);
+                  }
             });
 
     }
@@ -82,8 +85,12 @@ export class Updatevehicle implements OnInit {
                     }
                   },
                   error: (err: any) => {
-                  this.showError("Vehicle Updated.");
-                }
+                    if(err.error.status=401){
+                      this.showError(err.error.message);
+                      this.router.navigate(['/login']);
+                    }
+                      this.showError(err.error.message);
+                      }
               });
       }
 

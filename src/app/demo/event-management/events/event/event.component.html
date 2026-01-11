@@ -19,42 +19,73 @@
       <h4>{{ editMode ? 'Edit Event' : 'Create Event' }}</h4>
 
       <div class="form-grid">
-        <input type="text" class="form-control" placeholder="Title" [(ngModel)]="form.title">
+        <label>Title
+          <input type="text" class="form-control" placeholder="Title" [(ngModel)]="form.title">
+        </label>
+        
+        <label>Description
+          <textarea class="form-control" placeholder="Description" [(ngModel)]="form.description"></textarea>
+        </label>
 
-        <textarea class="form-control" placeholder="Description" [(ngModel)]="form.description"></textarea>
+        <label>Event Type
+          <select class="form-select" [(ngModel)]="form.eventType">
+            <option value="">Event Type</option>
+            <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
+          </select>
+        </label>
 
-        <select class="form-select" [(ngModel)]="form.eventType">
-          <option value="">Event Type</option>
-          <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
-        </select>
+        <label>Vehicle Priority
+          <select class="form-select" [(ngModel)]="form.vehiclePriority">
+            <option value="">Priority</option>
+            <option *ngFor="let priority of vehiclePriorities" [value]="priority">{{priority}}</option>
+          </select>          
+        </label>
 
-        <select class="form-select" [(ngModel)]="form.vehiclePriority">
-          <option value="">Priority</option>
-          <option *ngFor="let priority of vehiclePriorities" [value]="priority">{{priority}}</option>
-        </select>
+        <label>Event Category
+          <select class="form-select" [(ngModel)]="form.category">
+            <option value="">Category</option>
+            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+          </select>          
+        </label>
 
-        <select class="form-select" [(ngModel)]="form.category">
-          <option value="">Category</option>
-          <option *ngFor="let category of categories" [value]="category">{{category}}</option>
-        </select>
+        <label>Booking Status
+          <select class="form-select" [(ngModel)]="form.bookingStatus">
+            <option value="">Booking Status</option>
+            <option *ngFor="let status of bookingStatuses" [value]="status">{{status}}</option>
+          </select>          
+        </label>
 
-        <select class="form-select" [(ngModel)]="form.bookingStatus">
-          <option value="">Booking Status</option>
-          <option *ngFor="let status of bookingStatuses" [value]="status">{{status}}</option>
-        </select>
+        <label>Department
+          <select class="form-select" [(ngModel)]="form.department">
+            <option value="">Department</option>
+            <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
+          </select>          
+        </label>
 
-        <select class="form-select" [(ngModel)]="form.department">
-          <option value="">Department</option>
-          <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
-        </select>
 
-<label><input type="checkbox" [(ngModel)]="form.privateEvent"> 🔒 Private Event</label>
-<label><input type="checkbox" [(ngModel)]="form.departmentEvent"> 👥 Department Event</label>
-<label><input type="checkbox" [(ngModel)]="form.vehicleUpdate"> 🌐 Vehicle Update</label>
+        <label  style="margin-top: 30px; display: inline-block;">
+          <input type="checkbox" [(ngModel)]="form.privateEvent"> 🔒 Private Event
+        </label>
 
-<label><input type="date" class="form-control" [(ngModel)]="form.startDate">startDate</label>
-<label><input type="date" class="form-control" [(ngModel)]="form.endDate">endDate</label>
-<label><input type="date" class="form-control" [(ngModel)]="form.dueDate">dueDate</label>
+        <label>
+          <input type="checkbox" [(ngModel)]="form.departmentEvent"> 👥 Department Event
+        </label>
+
+        <label>
+          <input type="checkbox" [(ngModel)]="form.vehicleUpdate"> 🌐 Vehicle Update
+        </label>
+
+        <label>StartDate
+          <input type="date" class="form-control" [(ngModel)]="form.startDate">
+        </label>
+
+        <label>EndDate
+          <input type="date" class="form-control" [(ngModel)]="form.endDate">
+        </label>
+
+        <label>DueDate
+          <input type="date" class="form-control" [(ngModel)]="form.dueDate">
+        </label>
 
       </div>
 
@@ -63,10 +94,7 @@
         <button class="btn btn-success px-5" (click)="saveEvent()" *ngIf="editMode">Update</button>
         <button class="btn btn-secondary" (click)="close()">Cancel</button>
         <button class="btn btn-danger" *ngIf="editMode" (click)="deleteEvent()">Delete</button>
-
       </div>
-
     </div>
   </div>
-
 </div>

@@ -991,3 +991,25 @@
 .icon-heart-on:before {
   content: '\e90c';
 }
+
+.icon-van::before {
+  font-family: "Font Awesome 5 Free"; /* or appropriate font family */
+  content: '\f188';
+  font-weight: 900; /* Required for Font Awesome 5+ */
+  display: inline-block;
+}
+
+.icon-calendar-days::before {
+  font-family: "Font Awesome 5 Free";
+  content: '\f073';
+  font-weight: 900;
+  display: inline-block;
+}
+
+.icon-truck::before {
+  font-family: "Font Awesome 5 Free";
+  content: '\f0d1';
+  font-weight: 900;
+  display: inline-block;
+}
+

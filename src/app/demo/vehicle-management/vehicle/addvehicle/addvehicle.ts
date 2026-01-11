@@ -71,7 +71,11 @@ export class Addvehicle  implements OnInit {
                 }
               },
               error: (err: any) => {
-              this.showError(err.error.message);
+              if(err.error.status=401){
+                this.showError(err.error.message);
+                this.router.navigate(['/login']);
+              }
+                this.showError(err.error.message);
             }
           });
   }

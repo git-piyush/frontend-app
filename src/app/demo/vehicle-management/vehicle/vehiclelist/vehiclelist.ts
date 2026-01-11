@@ -70,15 +70,22 @@ export class Vehiclelist implements OnInit {
             window.location.reload();
         },
         error: (err) => {
-            this.snackBar.open("Some Error Occured.", '', {
-              duration: 3000,
-              verticalPosition: 'top',
-              horizontalPosition: 'center'
-            });
+            if(err.error.status=401){
+                this.showError(err.error.message);
+                this.router.navigate(['/login']);
+              }
+                this.showError(err.error.message);
         }
 
       });
 
   }
+      showError(msg: string){
+        this.snackBar.open(msg, '', {
+        duration: 3000, // auto-close after 5 seconds
+        verticalPosition: 'top',
+        horizontalPosition: 'center'
+        });
+    }
 
 }
