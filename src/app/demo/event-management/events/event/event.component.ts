@@ -82,6 +82,30 @@ export class EventComponent implements OnInit {
           if (e.privateEvent) title = '🔒 ' + title;
           if (e.departmentEvent) title = '👥 ' + title;
           if (e.vehicleUpdate) title = '🌐 ' + title;
+          console.log(e.startDate);
+          console.log(e.endDate.split('T')[0]);
+          
+          const start1 = new Date(e.startDate);
+          const end1 = new Date(e.endDate);
+
+          // Difference in milliseconds
+          const diffInMs = end1.getTime() - start1.getTime();
+
+          // Convert to days
+          const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+          console.log(diffInDays);
+          if (diffInDays > 0) {
+                const end1 = new Date(e.endDate);
+
+                // add 1 day
+                const newEnd1 = new Date(end1);
+                newEnd1.setDate(end1.getDate() + 1);
+
+                // assign as string
+                e.endDate = newEnd1.toISOString();
+              }
+
+
 
           return {
             id: String(e.id),

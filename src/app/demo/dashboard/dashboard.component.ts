@@ -27,11 +27,7 @@ export class DashboardComponent implements AfterViewInit {
   totalVehicle:any='';
   totalEvent:any='';
   
-  statusCards = [
-  { 
-    
-  }
-];
+  statusCards = [{ }];
 
   constructor(private dashBoardService:DashboardService, private router: Router, private snackBar: MatSnackBar,) {
     this.updateTime();
@@ -44,13 +40,12 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   loadDashboardData(){
-
       this.dashBoardService.getDashboardData().subscribe({
           next: (res:any) => {
             console.log(res);
-            if (res!=null) {
-                      this.totalVehicle = res.totalVehicle;
-                      this.totalEvent = res.totalEvent;
+            if (res.status==200) {                      
+                      this.totalVehicle = res.dashboardResponse.totalVehicle;
+                      this.totalEvent = res.dashboardResponse.totalEvent;
                               // ENHANCED STATUS CARDS
                         this.statusCards = [
                           { title: 'AVAILABLE VEHICLES', icon: 'icon-truck text-info', amount: this.totalVehicle, progress: 60, bg: 'bg-primary', cardClass: 'card-stats-primary' },
@@ -67,6 +62,7 @@ export class DashboardComponent implements AfterViewInit {
                   }
               },
               error: (err: any) => {
+                console.log(err.error);
                 if(err.error.status===401){
                     this.showError(err.error.message);
                     this.router.navigate(['/login']);
