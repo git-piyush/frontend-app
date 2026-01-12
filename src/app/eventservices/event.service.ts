@@ -40,6 +40,7 @@ getAllEvents(): Observable<EventModel[]> {
 
 
   createDBEvent(): void {    
+    console.log('createDBEvent');
     this.http.get<EventModel[]>(`${EventService.BASE_URL}/event/all-event`, {
       headers: this.getHeader(),
             }).subscribe({

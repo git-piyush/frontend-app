@@ -226,7 +226,8 @@ export class EventComponent implements OnInit {
           console.log('Update successful:', result);
           // this.notificationService.notifyEventUpdated({ title: this.form.title, id: this.form.id });
           this.close();
-          this.loadEvents();
+          window.location.reload();
+          //this.loadEvents();
         },
         error: (error) => {
           console.error('Update failed:', error);
@@ -240,7 +241,8 @@ export class EventComponent implements OnInit {
           console.log('Create successful:', result);
           // this.notificationService.notifyEventCreated({ title: this.form.title, id: result.id });
           this.close();
-          this.loadEvents();
+          //this.loadEvents();
+          window.location.reload();
         },
         error: (error) => {
           console.error('Create failed:', error);
