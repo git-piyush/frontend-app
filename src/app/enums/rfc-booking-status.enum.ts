@@ -1,0 +1,9 @@
+export enum RfcBookingStatus {
+  UPCOMING = 'RFUCO',
+  INPROGRESS = 'RFINC',
+  COMPLETED = 'RFCOM',
+  PENDING = 'RFPEN',
+  OVERDUE = 'RFOVE',
+  CANCELLED = 'RFCAN',
+  HOLD='RFHLD'
+}

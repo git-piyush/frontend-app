@@ -7,8 +7,8 @@ import { BookingService } from 'src/app/demo/vehicle-management/bookings/service
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { VehicleType } from '../../../../enums/vehicle-type.enum';
-import { VehicleStatus } from '../../../../enums/vehicle-status.enum';
-import { BookingStatus } from '../../../../enums/booking-status.enum';
+import { RfcVehicleStatus } from 'src/app/enums/rfc-vehicle-status.enum';
+import { RfcBookingStatus } from 'src/app/enums/rfc-booking-status.enum';
 
 @Component({
   selector: 'app-booking',
@@ -29,13 +29,13 @@ export class Booking implements OnInit {
 
   // Enum options for dropdowns
   vehicleTypeOptions = Object.values(VehicleType);
-  vehicleStatusOptions = Object.values(VehicleStatus);
-  bookingStatusOptions = Object.values(BookingStatus);
+  vehicleStatusOptions = Object.values(RfcVehicleStatus);
+  bookingStatusOptions = Object.values(RfcBookingStatus);
 
   // Enum values for template
   vehicleTypes = Object.values(VehicleType);
-  vehicleStatuses = Object.values(VehicleStatus);
-  bookingStatuses = Object.values(BookingStatus);
+  vehicleStatuses = Object.values(RfcVehicleStatus);
+  bookingStatuses = Object.values(RfcBookingStatus);
 
   constructor(
     private fb: FormBuilder,

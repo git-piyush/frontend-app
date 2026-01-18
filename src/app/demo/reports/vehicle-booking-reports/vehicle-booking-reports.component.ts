@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { BookingStatus } from '../../../enums/booking-status.enum';
-import { VehicleStatus } from '../../../enums/vehicle-status.enum';
 import { VehicleType } from '../../../enums/vehicle-type.enum';
 import { ConfirmationDialogComponent } from '../../admin-management/confirmation-dialog/confirmation-dialog.component';
 import { BookingModalComponent } from '../../vehicle-management/bookings/booking-modal/booking-modal.component';
 import { VehicleBooking } from '../../vehicle-management/bookings/models/vehicle-booking.model';
 import { BookingService } from '../../vehicle-management/bookings/services/booking.service';
+import { RfcVehicleStatus } from 'src/app/enums/rfc-vehicle-status.enum';
+import { RfcBookingStatus } from 'src/app/enums/rfc-booking-status.enum';
 
 @Component({
   selector: 'app-vehicle-booking-reports',
@@ -124,7 +124,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "MH-12-AB-1234",
           vehicleModel: "Tata Ace",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "MH-12-AB-1234",
         startedFrom: "Mumbai",
@@ -132,8 +132,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Rajesh Kumar",
         bookingDate: today.toISOString().split('T')[0], // Today
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 15000,
         bookingAdvance: 5000,
         bookingBalance: 10000,
@@ -151,7 +151,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "KA-05-CD-5678",
           vehicleModel: "Toyota Innova",
           vehicleType: VehicleType.CAR,
-          status: VehicleStatus.IN_PROGRESS
+          status: RfcVehicleStatus.IN_PROGRESS
         },
         vehicleNo: "KA-05-CD-5678",
         startedFrom: "Bangalore",
@@ -159,8 +159,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.CAR,
         driverName: "Priya Sharma",
         bookingDate: today.toISOString().split('T')[0], // Today
-        bookingStatus: BookingStatus.PENDING,
-        vehicleStatus: VehicleStatus.IN_PROGRESS,
+        bookingStatus: RfcBookingStatus.PENDING,
+        vehicleStatus: RfcVehicleStatus.IN_PROGRESS,
         bookingHire: 20000,
         bookingAdvance: 10000,
         bookingBalance: 10000
@@ -175,7 +175,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "TN-09-EF-9012",
           vehicleModel: "Ashok Leyland",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "TN-09-EF-9012",
         startedFrom: "Chennai",
@@ -183,8 +183,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Amit Singh",
         bookingDate: yesterday.toISOString().split('T')[0], // Yesterday (this week)
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 25000,
         bookingAdvance: 8000,
         bookingBalance: 17000,
@@ -202,7 +202,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "AP-05-GH-3456",
           vehicleModel: "Mahindra Van",
           vehicleType: VehicleType.VAN,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "AP-05-GH-3456",
         startedFrom: "Hyderabad",
@@ -210,8 +210,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.VAN,
         driverName: "Suresh Patel",
         bookingDate: threeDaysAgo.toISOString().split('T')[0], // 3 days ago (this week)
-        bookingStatus: BookingStatus.INPROGRESS,
-        vehicleStatus: VehicleStatus.IN_PROGRESS,
+        bookingStatus: RfcBookingStatus.INPROGRESS,
+        vehicleStatus: RfcVehicleStatus.IN_PROGRESS,
         bookingHire: 12000,
         bookingAdvance: 4000,
         bookingBalance: 8000
@@ -226,7 +226,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "RJ-14-IJ-7890",
           vehicleModel: "Tata 407",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "RJ-14-IJ-7890",
         startedFrom: "Jaipur",
@@ -234,8 +234,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Vikram Rao",
         bookingDate: lastWeek.toISOString().split('T')[0], // Last week (this month)
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 18000,
         bookingAdvance: 6000,
         bookingBalance: 12000,
@@ -255,7 +255,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "GJ-18-KL-1234",
           vehicleModel: "Bharat Benz",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "GJ-18-KL-1234",
         startedFrom: "Ahmedabad",
@@ -263,8 +263,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Rahul Mehta",
         bookingDate: twoWeeksAgo.toISOString().split('T')[0], // 2 weeks ago (this year)
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 30000,
         bookingAdvance: 10000,
         bookingBalance: 20000,
@@ -282,7 +282,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "WB-02-MN-5678",
           vehicleModel: "Volvo Truck",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "WB-02-MN-5678",
         startedFrom: "Kolkata",
@@ -290,8 +290,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Anil Gupta",
         bookingDate: lastMonth.toISOString().split('T')[0], // Last month (this year)
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 35000,
         bookingAdvance: 15000,
         bookingBalance: 20000,
@@ -309,7 +309,7 @@ export class VehicleBookingReportsComponent implements OnInit {
           vehicleNumber: "UP-32-OP-9012",
           vehicleModel: "Eicher Truck",
           vehicleType: VehicleType.TRUCK,
-          status: VehicleStatus.AVAILABLE
+          status: RfcVehicleStatus.AVAILABLE
         },
         vehicleNo: "UP-32-OP-9012",
         startedFrom: "Lucknow",
@@ -317,8 +317,8 @@ export class VehicleBookingReportsComponent implements OnInit {
         vehicleType: VehicleType.TRUCK,
         driverName: "Mohan Das",
         bookingDate: twoMonthsAgo.toISOString().split('T')[0], // 2 months ago (this year)
-        bookingStatus: BookingStatus.COMPLETED,
-        vehicleStatus: VehicleStatus.AVAILABLE,
+        bookingStatus: RfcBookingStatus.COMPLETED,
+        vehicleStatus: RfcVehicleStatus.AVAILABLE,
         bookingHire: 22000,
         bookingAdvance: 8000,
         bookingBalance: 14000,

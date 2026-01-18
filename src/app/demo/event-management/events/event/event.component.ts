@@ -8,13 +8,12 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { EventService } from '../../../../eventservices/event.service';
 import { EventModel } from '../../../../model/event.model';
 import { NotificationService } from '../../../../shared/services/notification.service';
-import { EventType } from '../../../../enums/event-type.enum';
-import { Department } from '../../../../enums/department.enum';
-import { VehiclePriority } from '../../../../enums/vehicle-priority.enum';
-import { BookingStatus } from '../../../../enums/booking-status.enum';
-import { Category } from '../../../../enums/category.enum';
-
-
+import { RfcEventType } from 'src/app/enums/rfc-event-type.enum';
+import { RfcDepartment } from 'src/app/enums/rfc-department.enum';
+import { RfcVehiclePriority } from 'src/app/enums/rfc-vehicle-priority.enum';
+import { RfcBookingStatus } from 'src/app/enums/rfc-booking-status.enum';
+import { RfcProgress } from 'src/app/enums/rfc-progress.enum';
+import { RefcodeService } from 'src/app/demo/refcode/refcode.service';
 
 @Component({
   selector: 'app-event',
@@ -32,20 +31,27 @@ export class EventComponent implements OnInit {
   editMode = false;
 
   // Enum arrays for dropdowns
-  eventTypes = Object.values(EventType);
-  departments = Object.values(Department);
-  vehiclePriorities = Object.values(VehiclePriority);
-  bookingStatuses = Object.values(BookingStatus);
-  categories = Object.values(Category);
+  departments = Object.values(RfcDepartment);
+  vehiclePriorities = Object.values(RfcVehiclePriority);
+  bookingStatuses = Object.values(RfcBookingStatus);
+  progress = Object.values(RfcProgress);
+
+  bookingStatusOptions: { key: string; value: unknown; }[];
+  vehiclePriorityOptions: { key: string; value: unknown; }[];
+  departmentOptions: { key: string; value: unknown; }[];
+  eventTypeOptions: { key: string; value: unknown; }[];
+  progressOptions: { key: string; value: unknown; }[];
+
+
 
   form: EventModel = {
     title: '',
     description: '',
-    eventType: '',
-    category: '',
-    vehiclePriority: '',
-    bookingStatus: '',
-    department: '',
+    rfcEventType: '',
+    rfcEventProgress: '',
+    rfcVehiclePriority: '',
+    rfcBookingStatus: '',
+    rfcDepartment: '',
     privateEvent: false,
     departmentEvent: false,
     vehicleUpdate: false,
@@ -54,11 +60,62 @@ export class EventComponent implements OnInit {
     endDate: ''
   };
 
-  constructor(private service: EventService, // private notificationService: NotificationService
+  constructor(private service: EventService,private refcodeService:RefcodeService // private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
     this.loadEvents();
+    this.loadDropDown();
+  }
+
+  loadDropDown() {
+        this.refcodeService.getAllRefcodeMap().subscribe({
+              next: (response) => {
+                console.log(response.refCodeMap);
+
+                const eventTypeOptionsMap = response.refCodeMap1["CAT_EVENT_TYPE"];
+                this.eventTypeOptions = Object.entries(eventTypeOptionsMap).map(([key, value]) => ({
+                  key,
+                  value
+                }));
+
+                const departmentOptionsMap = response.refCodeMap1["CAT_DEPARTMENT"];
+                this.departmentOptions = Object.entries(departmentOptionsMap).map(([key, value]) => ({
+                  key,
+                  value
+                }));
+
+                const vehiclePriorityOptionsMap = response.refCodeMap1["CAT_VEHICLE_PRIORITY"];
+                this.vehiclePriorityOptions = Object.entries(vehiclePriorityOptionsMap).map(([key, value]) => ({
+                  key,
+                  value
+                }));
+
+
+                const bookingStatusOptionsMap = response.refCodeMap1["CAT_BOOKING_STATUS"];
+                this.bookingStatusOptions = Object.entries(bookingStatusOptionsMap).map(([key, value]) => ({
+                  key,
+                  value
+                }));
+
+
+
+                const eventProgressMap = response.refCodeMap1["CAT_EVENT_PROGRESS"];
+                this.progressOptions = Object.entries(eventProgressMap).map(([key, value]) => ({
+                  key,
+                  value
+                }));
+
+            },
+            error: (err) => {
+              if(err.error.status=401){
+                //this.showError(err.error.message);
+                //this.router.navigate(['/login']);
+               }
+                    //this.showError(err.error.message);
+              }
+        });
+
   }
 
   loadEvents() {
@@ -116,10 +173,10 @@ export class EventComponent implements OnInit {
             color: this.getColor(e),
             extendedProps: {
               description: e.description,
-              category: e.category,
-              bookingStatus: e.bookingStatus,
-              vehiclePriority: e.vehiclePriority,
-              department: e.department,
+              rfcEventProgress: e.rfcEventProgress,
+              rfcBookingStatus: e.rfcBookingStatus,
+              rfcVehiclePriority: e.rfcVehiclePriority,
+              rfcDepartment: e.rfcDepartment,
               privateEvent: e.privateEvent,
               departmentEvent: e.departmentEvent,
               vehicleUpdate: e.vehicleUpdate
@@ -135,32 +192,32 @@ export class EventComponent implements OnInit {
   // EVENT COLOR RULES - Updated according to requirements
   getColor(e: EventModel): string {
     // Tasks (Due Date) red colour - highest priority
-    if (e.category?.toLowerCase() === 'task' && e.dueDate) {
+    if (e.rfcEventProgress?.toLowerCase() === 'rfupc' && e.dueDate) {
       return 'red';
     }
 
     // Completed Tasks green
-    if (e.bookingStatus?.toLowerCase() === 'completed') {
+    if (e.rfcBookingStatus?.toLowerCase() === 'completed') {
       return 'green';
     }
 
     // Overdue Tasks red
-    if (e.bookingStatus?.toLowerCase() === 'overdue') {
+    if (e.rfcBookingStatus?.toLowerCase() === 'overdue') {
       return 'red';
     }
 
     // Critical Priority red
-    if (e.vehiclePriority?.toLowerCase() === 'critical') {
+    if (e.rfcVehiclePriority?.toLowerCase() === 'CRITICAL') {
       return 'red';
     }
 
     // High Priority yellow
-    if (e.vehiclePriority?.toLowerCase() === 'high') {
+    if (e.rfcVehiclePriority?.toLowerCase() === 'rfhig') {
       return 'yellow';
     }
 
     // Low Priority orange
-    if (e.vehiclePriority?.toLowerCase() === 'low') {
+    if (e.rfcVehiclePriority?.toLowerCase() === 'rflow') {
       return 'orange';
     }
 
@@ -272,11 +329,11 @@ export class EventComponent implements OnInit {
     this.form = {
       title: '',
       description: '',
-      eventType: '',
-      category: '',
-      vehiclePriority: '',
-      bookingStatus: '',
-      department: '',
+      rfcEventType: '',
+      rfcEventProgress: '',
+      rfcVehiclePriority: '',
+      rfcBookingStatus: '',
+      rfcDepartment: '',
       privateEvent: false,
       departmentEvent: false,
       vehicleUpdate: false,

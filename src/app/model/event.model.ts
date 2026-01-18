@@ -4,12 +4,12 @@ export interface EventModel {
   title: string;
   description?: string;
 
-  eventType?: string;
-  category?: string;           // Enum name strings expected by backend (WORKSHOP, EVENT, TASK, MEETING)
-  vehiclePriority?: string;    // (LOW, MEDIUM, HIGH, CRITICAL)
-  bookingStatus?: string;      // (UPCOMING, INPROGRESS, COMPLETED, PENDING, OVERDUE, CANCELLED)
+  rfcEventType?: string;
+  rfcEventProgress?: string;           // Enum name strings expected by backend (WORKSHOP, EVENT, TASK, MEETING)
+  rfcVehiclePriority?: string;    // (LOW, MEDIUM, HIGH, CRITICAL)
+  rfcBookingStatus?: string;      // (UPCOMING, INPROGRESS, COMPLETED, PENDING, OVERDUE, CANCELLED)
 
-  department?: string;
+  rfcDepartment?: string;
 
   privateEvent?: boolean;
   departmentEvent?: boolean;

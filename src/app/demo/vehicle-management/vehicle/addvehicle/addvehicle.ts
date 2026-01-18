@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BookingStatus } from 'src/app/enums/booking-status.enum';
-import { VehicleStatus } from 'src/app/enums/vehicle-status.enum';
 import { VehicleType } from '../../../../enums/vehicle-type.enum';
 import { BookingService } from '../../bookings/services/booking.service';
 import { VehicleService } from '../../service/vehicle.service';

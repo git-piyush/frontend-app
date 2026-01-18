@@ -1,4 +1,4 @@
-export enum VehicleStatus {
+export enum RfcVehicleStatus {
   AVAILABLE = 'AVAILABLE',
   IN_PROGRESS = 'IN_PROGRESS',
   COMPLETED= 'COMPLETED',

@@ -14,18 +14,8 @@ export class EventService {
   private events$ = new BehaviorSubject<EventModel[]>(this.eventsStore);
   private static BASE_URL = environment.BASE_URL;
   constructor(private http: HttpClient) {
-    // Optional seed example:
-    // this.create({
-    //   eventType: 'Project Kickoff',
-    //   category: 'Meeting',
-    //   priority: 'Medium',
-    //   status: 'upcoming',
-    //   department: 'Operations',
-    //   dueDate: new Date().toISOString(),
-    //   isPrivate: false
-    // }).subscribe();
   }
-getAllEvents(): Observable<EventModel[]> {
+ getAllEvents(): Observable<EventModel[]> {
     this.createDBEvent();
     return this.events$.asObservable();
   }

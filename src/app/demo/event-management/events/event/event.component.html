@@ -27,39 +27,49 @@
           <textarea class="form-control" placeholder="Description" [(ngModel)]="form.description"></textarea>
         </label>
 
-        <label>Event Type
-          <select class="form-select" [(ngModel)]="form.eventType">
-            <option value="">Event Type</option>
-            <option *ngFor="let type of eventTypes" [value]="type">{{type}}</option>
+        <label name="rfcEventType">Event Type
+          <select class="form-select" [(ngModel)]="form.rfcEventType" name="rfcEventType">
+            <option value="" selected>Choose Event Type</option>
+            <option *ngFor="let item of eventTypeOptions" [value]="item.key">
+              {{ item.value }}
+            </option>
           </select>
         </label>
 
-        <label>Vehicle Priority
-          <select class="form-select" [(ngModel)]="form.vehiclePriority">
-            <option value="">Priority</option>
-            <option *ngFor="let priority of vehiclePriorities" [value]="priority">{{priority}}</option>
+        <label name="rfcVehiclePriority">Vehicle Priority
+          <select class="form-select" [(ngModel)]="form.rfcVehiclePriority" name="rfcVehiclePriority">
+            <option value="" selected>Choose Priority</option>
+            <option *ngFor="let priority of vehiclePriorityOptions" [value]="priority.key">
+              {{priority.value}}
+            </option>
           </select>          
         </label>
 
-        <label>Event Category
-          <select class="form-select" [(ngModel)]="form.category">
-            <option value="">Category</option>
-            <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+        <label name="rfcBookingStatus">Booking Status
+          <select class="form-select" [(ngModel)]="form.rfcBookingStatus" name="rfcBookingStatus">
+            <option value="" selected>Choose Booking Status</option>
+            <option *ngFor="let status of bookingStatusOptions" [value]="status.key">
+              {{status.value}}
+            </option>
           </select>          
         </label>
 
-        <label>Booking Status
-          <select class="form-select" [(ngModel)]="form.bookingStatus">
-            <option value="">Booking Status</option>
-            <option *ngFor="let status of bookingStatuses" [value]="status">{{status}}</option>
-          </select>          
+        <label name="rfcDepartment">Department
+          <select class="form-select" [(ngModel)]="form.rfcDepartment" name="rfcDepartment">
+            <option value="" selected>Choose Department</option>
+            <option *ngFor="let item of departmentOptions" [value]="item.key">
+              {{ item.value }}
+            </option>
+          </select>
         </label>
 
-        <label>Department
-          <select class="form-select" [(ngModel)]="form.department">
-            <option value="">Department</option>
-            <option *ngFor="let dept of departments" [value]="dept">{{dept}}</option>
-          </select>          
+        <label name="rfcEventProgress">Event Progress
+            <select class="form-select" [(ngModel)]="form.rfcEventProgress" name="rfcEventProgress">
+              <option value="">Event Progress</option>
+              <option *ngFor="let item of progressOptions" [value]="item.key">
+                {{ item.value }}
+              </option>
+            </select>
         </label>
 
 
