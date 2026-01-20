@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleBooking } from 'src/app/demo/vehicle-management/bookings/models/vehicle-booking.model';
+import { VehicleBooking } from 'src/app/demo/vehicle-management/bookings/models/model-list.model';
 import { BookingService } from 'src/app/demo/vehicle-management/bookings/services/booking.service';
 import { ConfirmationDialogComponent } from '../../../admin-management/confirmation-dialog/confirmation-dialog.component';
 import { BookingModalComponent } from '../booking-modal/booking-modal.component';

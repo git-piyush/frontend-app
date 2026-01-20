@@ -8,6 +8,7 @@ import { GuestComponent } from './theme/layout/guest/guest.component';
 // Components
 import { AdminComponent as AdminManagementComponent } from './demo/admin-management/admin.component'; // <-- Your AdminManagement page
 import { EventComponent } from './demo/event-management/events/event/event.component';
+import { RefcodeList } from './demo/refcode-management/refcode-list/refcode-list';
 
 const routes: Routes = [
   // Authenticated layout
@@ -99,6 +100,7 @@ const routes: Routes = [
       { path: 'events', component: EventComponent },
       // ✅ Admin Management Page
       { path: 'admin-management', component: AdminManagementComponent },
+      { path: 'refcode-list', component: RefcodeList },
 
       // ✅ Employee Management Page (Dedicated HR component)
       {

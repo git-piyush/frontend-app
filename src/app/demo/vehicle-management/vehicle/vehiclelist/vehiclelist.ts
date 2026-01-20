@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VehicleService } from '../../service/vehicle.service';
 import { Router, RouterModule } from '@angular/router';
-import { Vehicle } from '../../bookings/models/vehicle-booking.model';
+import { Vehicle } from '../../bookings/models/model-list.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -29,10 +29,10 @@ export class Vehiclelist implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadBookings();
+    this.getAllVehicle();
   }
 
-  loadBookings(){
+  getAllVehicle(){
     this.loading = true;
     // Try to load from backend API first
     this.vehicleService.getAllVehicle().subscribe({

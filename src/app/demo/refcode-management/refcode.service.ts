@@ -18,8 +18,14 @@ export class RefcodeService {
     });
   }
 
-    getAllRefcodeMap(): Observable<any> {
+  getAllRefcodeMap(): Observable<any> {
     return this.http.get(`${RefcodeService.BASE_URL}/refcode/getAllRefcodeMap`, {
+      headers: this.getHeader(),
+    });
+  }
+
+   getAllRefCode(): Observable<any> {
+    return this.http.get(`${RefcodeService.BASE_URL}/refcode/refcode-list`, {
       headers: this.getHeader(),
     });
   }

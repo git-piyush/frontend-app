@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BookingService } from '../services/booking.service';
-import { VehicleBooking } from '../models/vehicle-booking.model';
+import { VehicleBooking } from '../models/model-list.model';
 
 @Component({
   selector: 'app-booking-modal',

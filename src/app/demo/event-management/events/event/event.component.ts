@@ -13,7 +13,7 @@ import { RfcDepartment } from 'src/app/enums/rfc-department.enum';
 import { RfcVehiclePriority } from 'src/app/enums/rfc-vehicle-priority.enum';
 import { RfcBookingStatus } from 'src/app/enums/rfc-booking-status.enum';
 import { RfcProgress } from 'src/app/enums/rfc-progress.enum';
-import { RefcodeService } from 'src/app/demo/refcode/refcode.service';
+import { RefcodeService } from 'src/app/demo/refcode-management/refcode.service';
 
 @Component({
   selector: 'app-event',

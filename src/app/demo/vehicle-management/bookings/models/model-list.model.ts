@@ -8,6 +8,14 @@ export interface Vehicle {
   model?: string;
 }
 
+export interface RefCode {
+  id:number;
+  refCode:string;
+  category:string;
+  longName:string;
+  active:string;
+}
+
 export interface VehicleBooking {
   id: number;
   bookingId: string;

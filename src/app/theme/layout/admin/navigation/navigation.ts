@@ -70,6 +70,12 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'feather icon-layers',
         children: [
           {
+            id: 'refcode-management',
+            title: 'Refcode Management',
+            type: 'item',
+            url: '/refcode-list'
+          },
+          {
             id: 'admin-management',
             title: 'Admin Management',
             type: 'item',
