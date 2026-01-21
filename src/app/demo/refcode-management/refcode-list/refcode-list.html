@@ -12,19 +12,11 @@
         <button type="button" class="btn btn-success btn-sm" (click)="openLeaveApplicationModal()">
           <i class="fa fa-calendar-plus me-2"></i>Add Refcode
         </button>
-        <!-- Add Leave Type Button -->
-        <button class="btn btn-primary btn-sm" (click)="openLeaveTypesModal()">
-          <i class="fa fa-plus me-2"></i>Add RefCode Category
-        </button>
-        <!-- Print Button -->
-        <button type="button" class="btn btn-secondary btn-sm" (click)="printLeaveApplications()">
-          <i class="fa fa-print me-2"></i>Print
-        </button>
       </div>
     </div>
 
-<!-- Full Row Search Form -->
-<div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; width: 100%;">
+  <!-- Full Row Search Form -->
+  <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px; width: 100%;">
 
   <!-- Search Label -->
   <span style="font-weight: 600;">Search</span>
@@ -80,14 +72,14 @@
                 <td class="text-center">{{ refCode.category }}</td>
                 <td class="text-center">{{ refCode.longName }}</td>
                 <td class="text-center">
-                  <span class="badge" [ngClass]="refCode.active === 'Y' ? 'bg-success' : 'bg-secondary'">
+                  <span class="badge" [ngClass]="refCode.active === 'Yes' ? 'bg-success' : 'bg-secondary'">
                     {{ refCode.active }}
                   </span>
                 </td>
                 <td class="text-center">    
                     <button class="btn btn-sm btn-warning me-2"
                             type="button"
-                            [routerLink]="['/update-vehicle', refCode.id]"
+                            (click)="editRefCode(refCode.id)"
                             title="Update">
                         <i class="fa fa-edit"></i>
                     </button>
@@ -149,7 +141,6 @@
     </select>
   </div>
 </div>
-
 
 
 
@@ -276,35 +267,6 @@
         <button type="button" class="btn btn-primary" (click)="openLeaveApplicationModal()">
           Create RefCode with existing Category
         </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-<!-- ADD LEAVE TYPE MODAL -->
-<div *ngIf="showLeaveTypesModal" class="modal-backdrop fade show" style="z-index: 1055;"></div>
-<div *ngIf="showLeaveTypesModal" class="modal" tabindex="-1" style="display:block; z-index: 1056;">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Reference Code Category</h5>
-        <button type="button" class="btn-close" (click)="closeLeaveTypesModal()"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="refCodeForm">
-            <div class="col-md-10 mb-1">
-              <label class="form-label">Reference Code Category <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" formControlName="category"
-                     placeholder="e.g., Annual Leave, Casual Leave" />
-            </div>         
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeLeaveTypesModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="addRefCodeCategory()">Add Category</button>
       </div>
     </div>
   </div>

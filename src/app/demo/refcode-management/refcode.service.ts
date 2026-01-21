@@ -43,6 +43,11 @@ export class RefcodeService {
     });
   }
 
+  getRefCodeById(id: number): Observable<any> {
+    return this.http.get(`${RefcodeService.BASE_URL}/refcode/get/`+id, {
+      headers: this.getHeader(),
+    });
+  }
 
   private getHeader(): HttpHeaders {
     const token = localStorage.getItem('token');
