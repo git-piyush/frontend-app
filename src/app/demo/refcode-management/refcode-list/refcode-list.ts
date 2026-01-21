@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RefcodeService } from '../refcode.service';
 import { RefCode } from '../../vehicle-management/bookings/models/model-list.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 // Interfaces for leave management
 interface LeaveType {
@@ -12,6 +13,14 @@ interface LeaveType {
   maxDaysPerYear: number;
   description: string;
   status: 'Active' | 'Inactive';
+}
+
+interface RefCodeModel{
+  id: number;
+  refCode: string;
+  category: string;
+  active: string;
+  longName: string;
 }
 
 interface LeaveApplication {
@@ -42,6 +51,15 @@ interface Employee {
 })
 export class RefcodeList implements OnInit {
 
+  pageNumber: number = 0;
+  pageSize: number = 5;
+  totalPages: number = 0;
+  order:string="asc";
+  orderBy:string="category";
+  refCodeList: any[] = [];
+  allRefCodes: any[] = [];
+
+
   // Mock employee data - in real app this would come from service
   employees: Employee[] = [
     { id: 1, name: 'John Doe', designation: 'Employee' },
@@ -52,7 +70,6 @@ export class RefcodeList implements OnInit {
   ];
 
   // Leave management properties
-  refCodeList: RefCode[]=[];
   leaveTypes: LeaveType[] = [];
   leaveApplications: LeaveApplication[] = [];
   showLeaveApplicationModal = false;
@@ -60,30 +77,37 @@ export class RefcodeList implements OnInit {
   showConfirmationDialog = false;
   showExportDropdown = false;
   leaveApplicationForm: FormGroup;
+  refCodeForm: FormGroup;
   leaveTypeForm: FormGroup;
   editMode = false;
   selectedLeaveApplication?: LeaveApplication;
   selectedLeaveApplicationToDelete?: LeaveApplication;
   private nextLeaveTypeId = 1;
   private nextLeaveApplicationId = 1;
+  categoryList: [];
 
   constructor(private fb: FormBuilder, 
     private refcodeService: RefcodeService,
-  private snackBar: MatSnackBar,) {}
+  private snackBar: MatSnackBar,private router: Router) {}
 
   ngOnInit() {
-    this.loadRefCode();
+    this.loadFormDropDown();
+    this.loadRefCode(this.pageNumber,this.pageSize,this.order,this.orderBy);
     this.initializeForms();
     this.loadDefaultLeaveTypes();
   }
 
-  private  loadRefCode(){
+  private  loadRefCode(pageNumber,pageSize,order,orderBy){
     //this.loading = true;
     // Try to load from backend API first
-    this.refcodeService.getAllRefCode().subscribe({
+    this.refcodeService.getAllRefCode(pageNumber,pageSize,order,orderBy ).subscribe({
       next: (res) => {
         console.log("BACKEND RESPONSE - All bookings:", res);
         this.refCodeList = res.content || [];
+        this.pageNumber = res.pageable.pageNumber;
+        this.pageSize = res.pageable.pageSize;
+        this.totalPages = res.totalPages;
+        console.log('pageSize '+this.pageSize);
         //his.hasLocalUpdates = false;
         //this.loading = false;
         console.log(this.refCodeList);
@@ -100,17 +124,61 @@ export class RefcodeList implements OnInit {
   }
 
 
+changePage(newPage: number) {
+  if (newPage >= 0 && newPage < this.totalPages) {
+    this.pageNumber = newPage;
+    this.updatePageData(this.pageNumber,this.pageSize,this.order,this.orderBy);
+  }
+}
 
-  
+updatePageData(pageNumber,pageSize,order,orderBy) {
+  const start = this.pageNumber * this.pageSize;
+  const end = start + this.pageSize;
+  this.loadRefCode(pageNumber,pageSize,order,orderBy);
+  //this.refCodeList = this.allRefCodes.slice(start, end);
+}
+
+
+getPageNumbers(): number[] {
+  console.log('getPageNumbers');
+  const pages: number[] = [];
+  const maxPagesToShow = 5;
+
+  if (this.totalPages <= maxPagesToShow) {
+    for (let i = 0; i < this.totalPages; i++) pages.push(i);
+  } else {
+    let start = Math.max(0, this.pageNumber - 2);
+    let end = Math.min(this.totalPages, start + maxPagesToShow);
+
+    if (end - start < maxPagesToShow) {
+      start = Math.max(0, end - maxPagesToShow);
+    }
+
+    for (let i = start; i < end; i++) pages.push(i);
+
+    // Add ellipsis effect
+    if (end < this.totalPages) {
+      pages.push(this.totalPages - 1);
+    }
+  }
+  return pages;
+}
+
+onPageSizeChange() {
+  this.pageNumber = 0;
+  this.totalPages = Math.ceil(this.allRefCodes.length / this.pageSize);
+  this.updatePageData(this.pageNumber,this.pageSize,this.order,this.orderBy);
+}
 
   // Initialize forms for leave management
   private initializeForms() {
-    this.leaveApplicationForm = this.fb.group({
-      employeeId: [null, Validators.required],
-      leaveTypeId: [null, Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      reason: ['', Validators.required]
+    
+    this.refCodeForm = this.fb.group({
+      id: [],
+      refCode: [null, Validators.required],
+      category: ['', Validators.required],
+      active: ['Yes', Validators.required],
+      longName: ['', Validators.required]
     });
 
     this.leaveTypeForm = this.fb.group({
@@ -163,8 +231,26 @@ export class RefcodeList implements OnInit {
 
   // Leave management methods
   openLeaveApplicationModal() {
-    this.leaveApplicationForm.reset();
+    this.refCodeForm.reset();
+    this.loadFormDropDown();
     this.showLeaveApplicationModal = true;
+  }
+
+  loadFormDropDown() {
+        this.refcodeService.getAllRefcodeList().subscribe({
+              next: (response) => {
+                console.log(response.refCodeList);
+                this.categoryList = response.refCodeList;
+            },
+            error: (err) => {
+              if(err.error.status=401){
+                //this.showError(err.error.message);
+                //this.router.navigate(['/login']);
+               }
+                    //this.showError(err.error.message);
+              }
+        });
+
   }
 
   closeLeaveApplicationModal() {
@@ -172,35 +258,28 @@ export class RefcodeList implements OnInit {
   }
 
   submitLeaveApplication() {
-    if (this.leaveApplicationForm.invalid) {
+    if (this.refCodeForm.invalid) {
       alert('Please fill all required fields!');
       return;
     }
 
-    const formValue = this.leaveApplicationForm.value;
-    const employee = this.employees.find(emp => emp.id === formValue.employeeId);
-    const leaveType = this.leaveTypes.find(lt => lt.id === formValue.leaveTypeId);
+    const formValue = this.refCodeForm.value;
 
-    if (!employee || !leaveType) {
-      alert('Invalid employee or leave type selected!');
-      return;
-    }
+    console.log('Leave application submitted successfully!'+ JSON.stringify(formValue));
+    
+    this.refcodeService.createRefCode(formValue).subscribe({
+          next: (res:any) => {
+                if (res.status === 200) {
+                   this.showError(res.message);
+                      //this.viewVehicleList();             
+                }
+              },
+              error: (err: any) => {
+                this.showError(err.error.message);
+                //this.router.navigate(['/login']);
+            }
+          });
 
-    const leaveApplication: LeaveApplication = {
-      id: this.nextLeaveApplicationId++,
-      employeeId: employee.id,
-      employeeName: employee.name,
-      leaveTypeId: leaveType.id,
-      leaveTypeName: leaveType.name,
-      startDate: formValue.startDate,
-      endDate: formValue.endDate,
-      reason: formValue.reason,
-      status: 'Pending',
-      appliedDate: new Date().toISOString().split('T')[0]
-    };
-
-    this.leaveApplications.push(leaveApplication);
-    alert('Leave application submitted successfully!');
     this.closeLeaveApplicationModal();
   }
 
@@ -437,4 +516,17 @@ export class RefcodeList implements OnInit {
 
     return docxXML;
   }
+
+  showError(msg: string){
+    this.snackBar.open(msg, '', {
+    duration: 3000, // auto-close after 5 seconds
+    verticalPosition: 'top',
+    horizontalPosition: 'center'
+    });
+  }
+
+
+
+
+
 }

@@ -6,15 +6,15 @@
   <!-- Manage Leave Types Section -->
   <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="mb-0" style="color: #6f42c1;">Manage Leave Types</h5>
+      <h5 class="mb-0" style="color: #6f42c1;">Manage RefCode</h5>
       <div class="d-flex gap-2">
         <!-- Apply Leave Button -->
         <button type="button" class="btn btn-success btn-sm" (click)="openLeaveApplicationModal()">
-          <i class="fa fa-calendar-plus me-2"></i>Apply Leave
+          <i class="fa fa-calendar-plus me-2"></i>Add Refcode
         </button>
         <!-- Add Leave Type Button -->
         <button class="btn btn-primary btn-sm" (click)="openLeaveTypesModal()">
-          <i class="fa fa-plus me-2"></i>Add Leave Type
+          <i class="fa fa-plus me-2"></i>Add RefCode Category
         </button>
         <!-- Print Button -->
         <button type="button" class="btn btn-secondary btn-sm" (click)="printLeaveApplications()">
@@ -30,14 +30,12 @@
   <span style="font-weight: 600;">Search</span>
 
   <!-- Leave Type -->
-  <label style="font-weight: 500;">Leave Type:</label>
+  <label style="font-weight: 500;">Category:</label>
   <select id="leaveTypeFilter" style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
-    <option value="">All</option>
-    <option value="Annual Leave">Annual Leave</option>
-    <option value="Casual Leave">Casual Leave</option>
-    <option value="Maternity Leave">Maternity Leave</option>
-    <option value="Paternity Leave">Paternity Leave</option>
-    <option value="Sick Leave">Sick Leave</option>
+        <option [ngValue]="null">Select Category</option>
+        <option *ngFor="let category of categoryList" [ngValue]="category">
+          {{ category }}
+        </option>
   </select>
 
   <!-- Leave Category -->
@@ -61,13 +59,9 @@
           style="padding: 6px 14px; background-color: #007bff; color: white; border: none; border-radius: 4px;">
     Search
   </button>
-
 </div>
 
-
-
-
-    <div class="card">
+<div class="card">
       <div class="card-body p-0">
         <div class="table-responsive">
           <table class="table table-bordered mb-0">
@@ -106,6 +100,58 @@
     </div>
   </div>  
 </div>
+<!-- Pagination Controls -->
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; flex-wrap: wrap;">
+
+  <!-- Page Navigation -->
+  <div style="display: flex; align-items: center; gap: 6px;">
+    <button class="btn btn-outline-primary btn-sm"
+            [disabled]="pageNumber === 0"
+            (click)="changePage(0)">
+      First
+    </button>
+
+    <button class="btn btn-outline-primary btn-sm"
+            [disabled]="pageNumber === 0"
+            (click)="changePage(pageNumber - 1)">
+      &lt;
+    </button>
+
+    <ng-container *ngFor="let page of getPageNumbers()">
+      <button class="btn btn-sm"
+              [ngClass]="pageNumber === page ? 'btn-primary' : 'btn-outline-secondary'"
+              (click)="changePage(page)">
+        {{ page + 1 }}
+      </button>
+    </ng-container>
+
+    <button class="btn btn-outline-primary btn-sm"
+            [disabled]="pageNumber + 1 >= totalPages"
+            (click)="changePage(pageNumber + 1)">
+      &gt;
+    </button>
+
+    <button class="btn btn-outline-primary btn-sm"
+            [disabled]="pageNumber + 1 >= totalPages"
+            (click)="changePage(totalPages - 1)">
+      Last
+    </button>
+  </div>
+
+  <!-- Items Per Page -->
+  <div style="display: flex; align-items: center; gap: 6px;">
+    <label for="itemsPerPage" style="font-weight: 500;">Items per page:</label>
+    <select id="itemsPerPage"
+            [(ngModel)]="pageSize"
+            (change)="onPageSizeChange()"
+            style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;">
+      <option *ngFor="let size of [3, 5, 10, 20, 50]" [value]="size">{{ size }}</option>
+    </select>
+  </div>
+</div>
+
+
+
 
 <!-- CONFIRMATION DIALOG -->
 <div *ngIf="showConfirmationDialog" class="modal-backdrop fade show" style="z-index: 1055;"></div>
@@ -139,52 +185,45 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">{{ editMode ? 'Update Leave Application' : 'Apply for Leave' }}</h5>
+        <h5 class="modal-title">{{ editMode ? 'Update RefCode' : 'Create RefCode' }}</h5>
         <button type="button" class="btn-close" (click)="closeLeaveApplicationModal()"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="leaveApplicationForm">
+        <form [formGroup]="refCodeForm">
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Employee <span class="text-danger">*</span></label>
-              <select class="form-control" formControlName="employeeId">
+              <label class="form-label">RefCode Category <span class="text-danger">*</span></label>
+              <select class="form-control" formControlName="category">
                 <option [ngValue]="null">-- Select Employee --</option>
-                <option *ngFor="let emp of employees" [ngValue]="emp.id">
-                  {{ emp.name }}
+                <option *ngFor="let category of categoryList" [ngValue]="category">
+                  {{ category }}
                 </option>
               </select>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">Leave Type <span class="text-danger">*</span></label>
-              <select class="form-control" formControlName="leaveTypeId">
-                <option [ngValue]="null">-- Select Leave Type --</option>
-                <option *ngFor="let leaveType of leaveTypes" [ngValue]="leaveType.id">
-                  {{ leaveType.name }}
-                </option>
-              </select>
+              <label class="form-label">Reference Code <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="RefCode" formControlName="refCode" />
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Start Date <span class="text-danger">*</span></label>
-              <input type="date" class="form-control" formControlName="startDate" />
+              <label class="form-label">Active <span class="text-danger">*</span></label>
+                <select formControlName="active" class="form-control">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">End Date <span class="text-danger">*</span></label>
-              <input type="date" class="form-control" formControlName="endDate" />
+              <label class="form-label">RefCode Long Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="RefCode Long Name" formControlName="longName" />
             </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Reason <span class="text-danger">*</span></label>
-            <textarea class="form-control" rows="3" formControlName="reason"
-                      placeholder="Please provide a reason for your leave application"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationModal()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="submitLeaveApplication()"
-                [disabled]="leaveApplicationForm.invalid">Submit Application</button>
+                [disabled]="refCodeForm.invalid">Submit Application</button>
       </div>
     </div>
   </div>

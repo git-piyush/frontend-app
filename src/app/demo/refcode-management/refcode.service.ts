@@ -24,12 +24,24 @@ export class RefcodeService {
     });
   }
 
-   getAllRefCode(): Observable<any> {
-    return this.http.get(`${RefcodeService.BASE_URL}/refcode/refcode-list`, {
+  getAllRefCode(page:number, size:number, order:string, orderBy:string): Observable<any> {
+    return this.http.get(`${RefcodeService.BASE_URL}/refcode/refcode-list?page=`+page+`&size=`+size+`&order=`+order+`&orderBy`+order, {
       headers: this.getHeader(),
     });
   }
 
+  getAllRefcodeList(): Observable<any> {
+    return this.http.get(`${RefcodeService.BASE_URL}/refcode/getAllRefcodeCategoryList`, {
+      headers: this.getHeader(),
+    });
+  }
+
+  createRefCode(requestBody: any): Observable<any> {
+    console.log(requestBody);
+    return this.http.post(`${RefcodeService.BASE_URL}/refcode/create`,requestBody, {
+      headers: this.getHeader(),
+    });
+  }
 
 
   private getHeader(): HttpHeaders {
