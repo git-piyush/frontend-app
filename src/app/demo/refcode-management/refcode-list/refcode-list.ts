@@ -73,6 +73,7 @@ export class RefcodeList implements OnInit {
   leaveTypes: LeaveType[] = [];
   leaveApplications: LeaveApplication[] = [];
   showLeaveApplicationModal = false;
+  showNewCatApplicationModal = false;
   showLeaveTypesModal = false;
   showConfirmationDialog = false;
   showExportDropdown = false;
@@ -234,6 +235,7 @@ onPageSizeChange() {
   openLeaveApplicationModal() {
     this.refCodeForm.reset();
     this.loadFormDropDown();
+    this.closeNewCategoryCreateApplicationModal();
     this.showLeaveApplicationModal = true;
   }
 
@@ -282,6 +284,21 @@ onPageSizeChange() {
           });
 
     this.closeLeaveApplicationModal();
+    this.closeNewCategoryCreateApplicationModal();
+    window.location.reload();
+  }
+
+  createNewCategoryApplication(){
+    this.closeLeaveApplicationModal();
+    this.openNewCategoryCreateApplicationModal();
+  }
+
+  closeNewCategoryCreateApplicationModal(){
+    this.showNewCatApplicationModal=false;
+  }
+
+  openNewCategoryCreateApplicationModal(){
+    this.showNewCatApplicationModal=true;
   }
 
   openLeaveTypesModal() {

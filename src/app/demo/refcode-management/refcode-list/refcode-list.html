@@ -223,11 +223,66 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeLeaveApplicationModal()">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="submitLeaveApplication()"
-                [disabled]="refCodeForm.invalid">Submit Application</button>
+                [disabled]="refCodeForm.invalid">Create</button>
+        <button type="button" class="btn btn-primary" (click)="createNewCategoryApplication()">
+          Create RefCode with new Category
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- NEW CATEGORY WITH REFCODE CREATION APPLICATION MODAL -->
+<div *ngIf="showNewCatApplicationModal" class="modal-backdrop fade show" style="z-index: 1055;"></div>
+<div *ngIf="showNewCatApplicationModal" class="modal" tabindex="-1" style="display:block; z-index: 1056;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ editMode ? 'Update RefCode' : 'Create RefCode Category along with RefCode' }}</h5>
+        <button type="button" class="btn-close" (click)="closeLeaveApplicationModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="refCodeForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">RefCode Category <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="Enter Category" formControlName="category" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Reference Code <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="RefCode" formControlName="refCode" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Active <span class="text-danger">*</span></label>
+                <select formControlName="active" class="form-control">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">RefCode Long Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" placeholder="RefCode Long Name" formControlName="longName" />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeNewCategoryCreateApplicationModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitLeaveApplication()"
+                [disabled]="refCodeForm.invalid">Create</button>
+        <button type="button" class="btn btn-primary" (click)="openLeaveApplicationModal()">
+          Create RefCode with existing Category
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <!-- ADD LEAVE TYPE MODAL -->
 <div *ngIf="showLeaveTypesModal" class="modal-backdrop fade show" style="z-index: 1055;"></div>
