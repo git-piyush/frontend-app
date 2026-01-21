@@ -79,6 +79,7 @@ export class RefcodeList implements OnInit {
   leaveApplicationForm: FormGroup;
   refCodeForm: FormGroup;
   leaveTypeForm: FormGroup;
+  refCodeCategoryForm: FormGroup;
   editMode = false;
   selectedLeaveApplication?: LeaveApplication;
   selectedLeaveApplicationToDelete?: LeaveApplication;
@@ -292,23 +293,21 @@ onPageSizeChange() {
     this.showLeaveTypesModal = false;
   }
 
-  addLeaveType() {
-    if (this.leaveTypeForm.invalid) {
-      alert('Please fill all required fields!');
-      return;
-    }
+  addRefCodeCategory() {
 
-    const formValue = this.leaveTypeForm.value;
-    const newLeaveType: LeaveType = {
-      id: this.nextLeaveTypeId++,
-      name: formValue.name,
-      maxDaysPerYear: formValue.maxDaysPerYear,
-      description: formValue.description,
-      status: 'Active'
-    };
-
-    this.leaveTypes.push(newLeaveType);
-    alert('Leave type added successfully!');
+    const formValue = this.refCodeForm.value;
+    this.refcodeService.createRefCode(formValue).subscribe({
+          next: (res:any) => {
+                if (res.status === 200) {
+                   this.showError(res.message);
+                      //this.viewVehicleList();             
+                }
+              },
+              error: (err: any) => {
+                this.showError(err.error.message);
+                //this.router.navigate(['/login']);
+            }
+          });
     this.closeLeaveTypesModal();
   }
 

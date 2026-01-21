@@ -235,34 +235,21 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add Leave Type</h5>
+        <h5 class="modal-title">Add Reference Code Category</h5>
         <button type="button" class="btn-close" (click)="closeLeaveTypesModal()"></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="leaveTypeForm">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Leave Type Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" formControlName="name"
+        <form [formGroup]="refCodeForm">
+            <div class="col-md-10 mb-1">
+              <label class="form-label">Reference Code Category <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" formControlName="category"
                      placeholder="e.g., Annual Leave, Casual Leave" />
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Maximum Days Per Year <span class="text-danger">*</span></label>
-              <input type="number" class="form-control" formControlName="maxDaysPerYear" min="1"
-                     placeholder="e.g., 30" />
-            </div>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Description <span class="text-danger">*</span></label>
-            <textarea class="form-control" rows="3" formControlName="description"
-                      placeholder="Describe the leave type"></textarea>
-          </div>
+            </div>         
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="closeLeaveTypesModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="addLeaveType()"
-                [disabled]="leaveTypeForm.invalid">Add Leave Type</button>
+        <button type="button" class="btn btn-primary" (click)="addRefCodeCategory()">Add Category</button>
       </div>
     </div>
   </div>
