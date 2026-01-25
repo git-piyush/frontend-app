@@ -6,7 +6,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { EventService } from '../../../../eventservices/event.service';
-import { EventModel } from '../../../../model/event.model';
+import { EventModel } from '../../event.model';
 import { NotificationService } from '../../../../shared/services/notification.service';
 import { RfcEventType } from 'src/app/enums/rfc-event-type.enum';
 import { RfcDepartment } from 'src/app/enums/rfc-department.enum';

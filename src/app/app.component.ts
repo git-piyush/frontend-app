@@ -4,11 +4,10 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 // project import
 import { SpinnerComponent } from './theme/shared/components/spinner/spinner.component';
-import { EventManagementModule } from './demo/event-management/event-management.module';
 
 @Component({
   selector: 'app-root',
-  imports: [SpinnerComponent, RouterModule, EventManagementModule],
+  imports: [SpinnerComponent, RouterModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

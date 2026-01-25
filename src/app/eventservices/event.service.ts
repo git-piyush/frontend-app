@@ -1,7 +1,7 @@
 // event.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { EventModel } from '../model/event.model';
+import { EventModel } from '../demo/event-management/event.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 

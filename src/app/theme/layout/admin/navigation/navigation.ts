@@ -102,14 +102,14 @@ export const NavigationItems: NavigationItem[] = [
   // VEHICLE MANAGEMENT
   // -------------------------
   {
-    id: 'vehicle',
-    title: 'Vehicle Management',
+    id: 'appList',
+    title: 'Apps',
     type: 'group',
     icon: 'fa fa-truck',
     children: [
       {
-        id: 'vehicle-collapse',
-        title: 'Vehicle Management',
+        id: 'transport-app',
+        title: 'My Transport App',
         type: 'collapse',
         icon: 'fa fa-truck',
         children: [
@@ -124,6 +124,18 @@ export const NavigationItems: NavigationItem[] = [
             title: 'Vehicle List',
             type: 'item',
             url: '/vehicle-list'
+          },
+          {
+            id: 'book-transport',
+            title: 'Book Transport',
+            type: 'item',
+            url: '/book-transport'
+          },
+          {
+            id: 'booked-transport-list',
+            title: 'Booked Transport',
+            type: 'item',
+            url: '/booked-transport'
           },
           {
             id: 'bookings',

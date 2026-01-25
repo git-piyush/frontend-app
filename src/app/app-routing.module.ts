@@ -42,6 +42,14 @@ const routes: Routes = [
         loadComponent: () => import('./demo/vehicle-management/bookings/booking/booking').then(c => c.Booking)
       },
       {
+        path: 'booked-transport',
+        loadComponent: () => import('./demo/vehicle-management/transportlist/transportlist').then(c => c.Transportlist)
+      },
+      {
+        path: 'book-transport',
+        loadComponent: () => import('./demo/vehicle-management/booktransport/booktransport').then(c => c.Booktransport)
+      },
+      {
         path: 'add-vehicle',
         loadComponent: () => import('./demo/vehicle-management/vehicle/addvehicle/addvehicle').then(c => c.Addvehicle)
       },
