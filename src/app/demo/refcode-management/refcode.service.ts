@@ -49,6 +49,12 @@ export class RefcodeService {
     });
   }
 
+  deleteRefcodeById(id: number): Observable<any> {
+    return this.http.delete(`${RefcodeService.BASE_URL}/refcode/delete/`+id, {
+      headers: this.getHeader(),
+    });
+  }
+
   private getHeader(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({

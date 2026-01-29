@@ -195,6 +195,34 @@ getPageNumbers(): number[] {
     });
 
   }
+  
+
+  deleteRefcode(refId:number) {
+
+      if(!confirm("Are you sure you want to delete this the refcode?")){
+        return;
+      }
+
+      this.refcodeService.deleteRefcodeById(refId).subscribe({
+        next: (res) => {
+            this.snackBar.open("Refcode Deleted.", '', {
+              duration: 3000,
+              verticalPosition: 'top',
+              horizontalPosition: 'center'
+            });
+            window.location.reload();
+        },
+        error: (err) => {
+            if(err.error.status=401){
+                this.showError(err.error.message);
+                this.router.navigate(['/login']);
+              }
+                this.showError(err.error.message);
+        }
+
+      });
+
+  }
 
   closeLeaveApplicationModal() {
     this.showLeaveApplicationModal = false;
