@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DriverService } from '../../vehicle-management/drivers/services/driver.service';
-import { Driver } from '../../vehicle-management/drivers/models/driver.model';
-import { DriverModalComponent } from '../../vehicle-management/drivers/driver-modal/driver-modal.component';
+import { DriverService } from '../../transport-management/drivers/services/driver.service';
+import { Driver } from '../../transport-management/drivers/models/driver.model';
+import { DriverModalComponent } from '../../transport-management/drivers/driver-modal/driver-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';

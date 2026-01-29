@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { BookingService } from 'src/app/demo/vehicle-management/bookings/services/booking.service';
+import { BookingService } from 'src/app/demo/transport-management/bookings/services/booking.service';
 import { NotificationService } from 'src/app/shared/services/notification.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { VehicleType } from '../../../../enums/vehicle-type.enum';

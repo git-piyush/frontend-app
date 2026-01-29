@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { VehicleType } from '../../../enums/vehicle-type.enum';
 import { ConfirmationDialogComponent } from '../../admin-management/confirmation-dialog/confirmation-dialog.component';
-import { BookingModalComponent } from '../../vehicle-management/bookings/booking-modal/booking-modal.component';
-import { VehicleBooking } from '../../vehicle-management/bookings/models/model-list.model';
-import { BookingService } from '../../vehicle-management/bookings/services/booking.service';
+import { BookingModalComponent } from '../../transport-management/bookings/booking-modal/booking-modal.component';
+import { VehicleBooking } from '../../transport-management/bookings/models/model-list.model';
+import { BookingService } from '../../transport-management/bookings/services/booking.service';
 import { RfcVehicleStatus } from 'src/app/enums/rfc-vehicle-status.enum';
 import { RfcBookingStatus } from 'src/app/enums/rfc-booking-status.enum';
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RefcodeService } from '../refcode.service';
-import { RefCode } from '../../vehicle-management/bookings/models/model-list.model';
+import { RefCode } from '../../transport-management/bookings/models/model-list.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 

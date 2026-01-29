@@ -1,0 +1,159 @@
+<div class="page-container">
+  <div class="card">
+    <div class="card-header">
+  <div class="d-flex align-items-center justify-content-between">
+
+    <!-- Left spacer -->
+    <div style="width: 33%;"></div>
+
+    <!-- Center Title -->
+    <h5 class="" style="width: 25%;">Book Your Transport</h5>
+
+    <!-- Right Button -->
+    <div class="text-end" style="width: 33%;">
+      <button type="button" class="btn btn-info" (click)="viewBookingList()">
+        <i class="fa fa-list"></i> View Booking List
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+    <div class="card-body">
+      <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label>
+                  {{ htmlLabels.bookingDate }} <span style="color:red">*</span>
+                </label>
+                <input type="date" formControlName="bookingDate" name="bookingDate"
+                    class="form-control" placeholder="Enter Vehicle Reg. No." readonly />
+                    @if (bookingForm.get('bookingDate')?.hasError('required') && bookingForm.get('bookingDate')?.touched) {
+                      <div class="error">Vehicle Reg. No. is required.</div>
+                    }
+            </div>
+            <!-- Vehicle Type -->
+            <div class="col-md-4 mb-3">
+                <label name="transportDate">Transport Date *</label>
+                <input type="date" formControlName="transportDate"
+                    class="form-control" placeholder="Choose transport Date."  />
+                @if (bookingForm.get('transportDate')?.hasError('required') && bookingForm.get('transportDate')?.touched) {
+                      <div class="error">Transport Date is required.</div>
+                }
+            </div>
+            <!-- Vehicle Permit -->
+            <div class="col-md-4 mb-3">
+                <label name="rfcTransportType">Transport Type *</label>
+
+                <select formControlName="rfcTransportType" class="form-control" name="rfcTransportType">
+                  <option value="" selected>Select Transport Type</option>
+                  <option *ngFor="let item of transportType" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                  @if (bookingForm.get('rfcTransportType')?.hasError('required') && bookingForm.get('rfcTransportType')?.touched) {
+                     <div class="error">Transport Type is required.</div>
+                  }
+            </div>
+
+            <!-- Transport Vehicle -->
+            <div class="col-md-4 mb-3">
+                <label name="rfcTransportVehicle">Transport Vehicle *</label>
+
+                <select formControlName="rfcTransportVehicle" class="form-control" name="rfcTransportVehicle">
+                  <option value="" selected>Select Transport Vehicle</option>
+                  <option *ngFor="let item of transportVehicle" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                @if (bookingForm.get('rfcTransportVehicle')?.hasError('required') && bookingForm.get('rfcTransportVehicle')?.touched) {
+                    <div class="error">Transport Vehicle is required.</div>
+                  }
+            </div>
+
+
+            <!-- From City -->
+            <div class="col-md-4 mb-3">
+                <label name="rfcFromCity">From City *</label>
+
+                <select formControlName="rfcFromCity" class="form-control" name="rfcFromCity">
+                  <option value="" selected>Select From City</option>
+                  <option *ngFor="let item of originCity" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                    @if (bookingForm.get('rfcFromCity')?.hasError('required') && bookingForm.get('rfcFromCity')?.touched) {
+                      <div class="error">From City is required.</div>
+                    }
+            </div>
+
+            <!-- To City -->
+            <div class="col-md-4 mb-3">
+                <label name="rfcToCity">To City *</label>
+                 <select formControlName="rfcToCity" class="form-control" name="rfcToCity">
+                  <option value="" selected>Select Destination</option>
+                  <option *ngFor="let item of destinationCity" [value]="item.key">
+                    {{ item.value }}
+                  </option>
+                </select>
+                    @if (bookingForm.get('rfcToCity')?.hasError('required') && bookingForm.get('rfcToCity')?.touched) {
+                      <div class="error">To City is required.</div>
+                    }
+                    @if (bookingForm.hasError('mismatch') && bookingForm.get('rfcToCity')?.touched) {
+                      <div class="error">Source And Destination can't be same.</div>
+                    }
+            </div>
+
+            <!-- Hire Amount -->
+            <div class="col-md-4 mb-3">
+                <label name="price">Total Amount to be Paid</label>
+                <input type="number" formControlName="totalFair"
+                class="form-control" placeholder="" />
+                @if (bookingForm.get('totalFair')?.hasError('required') && bookingForm.get('totalFair')?.touched) {
+                    <div class="error">Total Fair is required.</div>
+                }
+            </div>
+
+            <!-- capacity -->
+            <div class="col-md-4 mb-3">
+                <label name="capacity">Contact No.</label>
+                <input type="text" formControlName="phone"
+                class="form-control" placeholder="Phone" />
+                @if (bookingForm.get('phone')?.hasError('required') && bookingForm.get('phone')?.touched) {
+                    <div class="error">Phone is required.</div>
+                }
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label name="description">Description</label>
+                <textarea type="text" formControlName="description"
+                class="form-control">
+                </textarea>
+            </div>
+        </div>
+
+        <!-- Submit -->
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary px-5" [disabled]="bookingForm.invalid">Proceed</button>
+         </div>
+        
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

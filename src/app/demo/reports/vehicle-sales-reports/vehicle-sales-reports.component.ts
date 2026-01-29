@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { VehicleSale } from '../../vehicle-management/sales/models/vehicle-sale.model';
-import { SaleService } from '../../vehicle-management/sales/services/sale.service';
+import { VehicleSale } from '../../transport-management/sales/models/vehicle-sale.model';
+import { SaleService } from '../../transport-management/sales/services/sale.service';
 import { ConfirmationDialogComponent } from '../../admin-management/confirmation-dialog/confirmation-dialog.component';
 
 @Component({

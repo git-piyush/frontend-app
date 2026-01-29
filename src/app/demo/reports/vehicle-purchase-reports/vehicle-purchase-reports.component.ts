@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { VehiclePurchase } from '../../vehicle-management/purchase/models/vehicle-purchase.model';
-import { PurchaseService } from '../../vehicle-management/purchase/services/purchase.service';
+import { VehiclePurchase } from '../../transport-management/purchase/models/vehicle-purchase.model';
+import { PurchaseService } from '../../transport-management/purchase/services/purchase.service';
 
 @Component({
   selector: 'app-vehicle-purchase-reports',

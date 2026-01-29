@@ -39,51 +39,51 @@ const routes: Routes = [
       },
       {
         path: 'bookings',
-        loadComponent: () => import('./demo/vehicle-management/bookings/booking/booking').then(c => c.Booking)
+        loadComponent: () => import('./demo/transport-management/bookings/booking/booking').then(c => c.Booking)
       },
       {
         path: 'booked-transport',
-        loadComponent: () => import('./demo/vehicle-management/transportlist/transportlist').then(c => c.Transportlist)
+        loadComponent: () => import('./demo/transport-management/transportlist/transportlist').then(c => c.Transportlist)
       },
       {
         path: 'book-transport',
-        loadComponent: () => import('./demo/vehicle-management/booktransport/booktransport').then(c => c.Booktransport)
+        loadComponent: () => import('./demo/transport-management/booktransport/booktransport').then(c => c.Booktransport)
       },
       {
         path: 'add-vehicle',
-        loadComponent: () => import('./demo/vehicle-management/vehicle/addvehicle/addvehicle').then(c => c.Addvehicle)
+        loadComponent: () => import('./demo/transport-management/vehicle/addvehicle/addvehicle').then(c => c.Addvehicle)
       },
       {
         path: 'vehicle-list',
-        loadComponent: () => import('./demo/vehicle-management/vehicle/vehiclelist/vehiclelist').then(c => c.Vehiclelist)
+        loadComponent: () => import('./demo/transport-management/vehicle/vehiclelist/vehiclelist').then(c => c.Vehiclelist)
       },
       {
         path: 'update-vehicle/:vehicleId',
-        loadComponent: () => import('./demo/vehicle-management/vehicle/updatevehicle/updatevehicle').then(c => c.Updatevehicle)
+        loadComponent: () => import('./demo/transport-management/vehicle/updatevehicle/updatevehicle').then(c => c.Updatevehicle)
       },
       {
         path: 'sale',
-        loadComponent: () => import('./demo/vehicle-management/sales/sale/sale').then(c => c.SaleComponent)
+        loadComponent: () => import('./demo/transport-management/sales/sale/sale').then(c => c.SaleComponent)
       },
       {
         path: 'vehicle-sales-list',
-        loadComponent: () => import('./demo/vehicle-management/sales/sales-list/sales-list.component').then(c => c.SalesListComponent)
+        loadComponent: () => import('./demo/transport-management/sales/sales-list/sales-list.component').then(c => c.SalesListComponent)
       },
       {
         path: 'drivers',
-        loadComponent: () => import('./demo/vehicle-management/drivers/driver').then(c => c.DriverComponent)
+        loadComponent: () => import('./demo/transport-management/drivers/driver').then(c => c.DriverComponent)
       },
       {
         path: 'drivers-list',
-        loadComponent: () => import('./demo/vehicle-management/drivers/drivers-list/drivers-list.component').then(c => c.DriversListComponent)
+        loadComponent: () => import('./demo/transport-management/drivers/drivers-list/drivers-list.component').then(c => c.DriversListComponent)
       },
       {
         path: 'purchases',
-        loadComponent: () => import('./demo/vehicle-management/purchase/purchase').then(c => c.PurchaseComponent)
+        loadComponent: () => import('./demo/transport-management/purchase/purchase').then(c => c.PurchaseComponent)
       },
       {
         path: 'purchase-list',
-        loadComponent: () => import('./demo/vehicle-management/purchase/purchase-list/purchase-list.component').then(c => c.PurchaseListComponent)
+        loadComponent: () => import('./demo/transport-management/purchase/purchase-list/purchase-list.component').then(c => c.PurchaseListComponent)
       },
       {
         path: 'vehicle-booking-reports',
@@ -103,7 +103,7 @@ const routes: Routes = [
       },
       {
         path: 'booked-vehicles',
-        loadComponent: () => import('./demo/vehicle-management/bookings/booked-vehicles-list/booked-vehicles-list.component').then(c => c.BookedVehiclesListComponent)
+        loadComponent: () => import('./demo/transport-management/bookings/booked-vehicles-list/booked-vehicles-list.component').then(c => c.BookedVehiclesListComponent)
       },
       { path: 'events', component: EventComponent },
       // ✅ Admin Management Page
