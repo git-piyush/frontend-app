@@ -109,6 +109,10 @@ export class RefcodeList implements OnInit {
             verticalPosition: 'top',
             horizontalPosition: 'center'
           });
+
+          if(err.error.status===401){
+            this.router.navigate(['/login']);
+          }
       }
     });
   }
@@ -241,19 +245,23 @@ getPageNumbers(): number[] {
     this.refcodeService.createRefCode(formValue).subscribe({
           next: (res:any) => {
                 if (res.status === 200) {
-                   this.showError(res.message);
-                      //this.viewVehicleList();             
+                   this.showError(res.message);           
                 }
               },
               error: (err: any) => {
                 this.showError(err.error.message);
-                //this.router.navigate(['/login']);
+                if(err.error.status===401){
+                  this.router.navigate(['/login']);
+                }
+                
             }
           });
 
     this.closeLeaveApplicationModal();
     this.closeNewCategoryCreateApplicationModal();
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   }
 
   createNewCategoryApplication(){
@@ -283,6 +291,7 @@ getPageNumbers(): number[] {
     const formValue = this.refCodeForm.value;
     this.refcodeService.createRefCode(formValue).subscribe({
           next: (res:any) => {
+              alert(res.message);
                 if (res.status === 200) {
                    this.showError(res.message);
                       //this.viewVehicleList();             
@@ -293,7 +302,7 @@ getPageNumbers(): number[] {
                 //this.router.navigate(['/login']);
             }
           });
-    this.closeLeaveTypesModal();
+    //this.closeLeaveTypesModal();
   }
 
   editRefCode(id:number){
